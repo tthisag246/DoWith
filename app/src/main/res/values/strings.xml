@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DoWith</string>
+    <string name="setting">Setting</string>
+    <string name="account">Account</string>
+    <string name="notification">Notification</string>
+    <string name="dark">Dark-mode</string>
+    <string name="language">Language</string>
+    <string name="coupon">Coupons</string>
+</resources>

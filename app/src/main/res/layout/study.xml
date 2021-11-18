@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".study"
+    android:background="#F2F2F6">
+
+    <!--스터디 메인 화면-->
+
+    <!--        스터디 -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Study"
+        android:textColor="#222222"
+        android:fontFamily="@font/bmj"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/joinlist"
+        android:layout_width="match_parent"
+        android:layout_height="644dp"
+        android:fontFamily="@font/bmj"
+        android:translationY="80dp" />
+
+    <!--스터디 생성 버튼-->
+    <ImageButton
+        android:id="@+id/make"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_circle"
+        android:translationX="330dp"
+        android:translationY="660dp"/>
+
+    <!--스터디 가입 버튼-->
+    <ImageButton
+        android:id="@+id/join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_supervised_user_circle_24"
+        android:translationX="330dp"
+        android:translationY="610dp"/>
+
+</RelativeLayout>

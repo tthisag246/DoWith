@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F6"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+<!--뒤로가기 버튼-->
+        <ImageButton
+            android:id="@+id/back_noti"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/ic_round_arrow_back_ios_new_24"
+            app:tint="#8F6CB1" />
+
+<!--'알림' 텍스트-->
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="알림"
+            android:textColor="#222222"
+            android:textSize="20dp"
+            android:fontFamily="@font/bmj"/>
+
+    </LinearLayout>
+<!--    알림문구-->
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="*3주 이상 지난 알림은 자동으로 삭제됩니다."
+        android:fontFamily="@font/bmj"
+        android:textSize="15dp"
+        android:textColor="#4E4E4E"
+        android:gravity="center"/>
+
+    <!--알림 목록이 보이는 리스트뷰-->
+        <ListView
+            android:id="@+id/noti_list"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="749dp"
+            android:divider="#00FFFFFF"
+            android:dividerHeight="20dp"
+            />
+
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home">
+
+    <!--캐릭터 꾸미기 방 버튼-->
+    <Button
+        android:id="@+id/btnEditC"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="캐릭터 꾸미기"
+        android:textSize="18dp"
+        android:fontFamily="@font/bmj"
+        android:backgroundTint="#8F6CB1"
+        android:textColor="#F2F2F6"
+        android:translationX="270dp"
+        android:translationY="630dp" />
+
+    <!--    캐릭터 이미지 -->
+    <ImageView
+        android:id="@+id/sd"
+        android:layout_width="114dp"
+        android:layout_height="311dp"
+        android:translationX="10dp"
+        android:translationY="420dp"
+        app:srcCompat="@drawable/sd1" />
+
+    <!--방 꾸미기 페이지 이동 버튼-->
+    <Button
+        android:id="@+id/btnEditR"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="방 꾸미기"
+        android:fontFamily="@font/bmj"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:backgroundTint="#8F6CB1"
+        android:textColor="#F2F2F6"
+        android:translationX="270dp"
+        android:translationY="670dp" />
+
+<!--친구리스트 버튼-->
+    <ImageButton
+        android:id="@+id/friend_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:scaleX="1.8"
+        android:scaleY="1.8"
+        android:translationX="20dp"
+        android:translationY="20dp"
+        android:src="@drawable/ic_baseline_person_24"
+        app:tint="#8F6CB1"/>
+
+</RelativeLayout>

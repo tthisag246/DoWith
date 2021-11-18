@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".study"
+    android:background="#F2F2F6">
+
+    <!--    스터디 가입 화면-->
+
+    <!--    스터디 가입 제목 라인-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--        뒤로 버튼-->
+        <ImageButton
+            android:id="@+id/back2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#F2F2F6"
+            app:tint="#8F6CB1"
+            app:srcCompat="@drawable/ic_round_arrow_back_ios_new_24" />
+
+        <!--        가입 제목-->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="197dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:text="스터디 가입"
+            android:fontFamily="@font/bmj"
+            android:textColor="#222222"
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </LinearLayout>
+
+    <!--    스터디 검색-->
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bmj"
+        app:iconifiedByDefault="false"
+        app:queryHint="스터디 입력하세요" />
+
+    <!--    추천 스터디 라인-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--        추천스터디-->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="328dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="추천 스터디"
+            android:fontFamily="@font/bmj"
+            android:textColor="#222222"
+            android:textSize="20dp" />
+
+        <!--        새로고침 버튼-->
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#00FFFFFF"
+            app:tint="#8F6CB1"
+            android:src="@drawable/ic_baseline_refresh_24" />
+
+    </LinearLayout>
+
+
+    <!--    추천 스터디 목록-->
+    <ListView
+        android:id="@+id/joinList"
+        android:layout_width="match_parent"
+        android:layout_height="636dp"
+        android:fontFamily="@font/bmj" />
+
+
+</LinearLayout>

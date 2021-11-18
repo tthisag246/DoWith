@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F2F2F6"
+    tools:context=".place">
+
+    <!--제목 텍스트뷰 생성-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Place"
+        android:textColor="#222222"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/bmj" />
+
+    <!--검색창 추가-->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/placeSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:translationY="50dp"
+        app:iconifiedByDefault="false"
+        app:queryHint="공간명 또는 코드를 입력하세요" />
+    <!--app:queryBackground="#8F6CB1"-->
+
+    <!--공간 목록 나열할 리스트뷰 생성-->
+    <ListView
+        android:id="@+id/placeListView"
+        android:layout_width="match_parent"
+        android:layout_height="1700px"
+        android:translationY="120dp" />
+
+    <!--공간 생성 버튼 생성-->
+    <ImageButton
+        android:id="@+id/btnAddPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_circle"
+        android:translationX="330dp"
+        android:translationY="660dp" />
+
+</RelativeLayout>

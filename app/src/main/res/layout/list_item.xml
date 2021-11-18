@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <!--일정 제목 텍스트뷰 생성-->
+            <TextView
+                android:id="@+id/listItemTitle"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20dp"
+                android:translationX="20dp"
+                android:textColor="#222222"
+                android:fontFamily="@font/bmj"/>
+
+            <!--일정 종류 텍스트뷰 생성-->
+            <TextView
+                android:id="@+id/listItemType"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15dp"
+                android:translationX="20dp"
+                android:textColor="#222222"
+                android:fontFamily="@font/bmj"/>
+
+            <!--일정 시간 텍스트뷰 생성-->
+            <TextView
+                android:id="@+id/listItemTime"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15dp"
+                android:translationX="20dp"
+                android:textColor="#222222"
+                android:fontFamily="@font/bmj"/>
+
+            <!--일정 메모 텍스트뷰 생성-->
+            <TextView
+                android:id="@+id/listItemMemo"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15dp"
+                android:translationX="20dp"
+                android:textColor="#222222"
+                android:fontFamily="@font/bmj"/>
+        </LinearLayout>
+
+        <!--일정 완료 체크박스 생성-->
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationX="340dp"
+            android:translationY="25dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

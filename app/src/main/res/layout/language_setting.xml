@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SubActivity">
+    <!--언어 설정-->
+    <ImageButton
+        android:id="@+id/back_lang"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        app:srcCompat="@drawable/ic_round_arrow_back_ios_new_24"
+        app:tint="#8F6CB1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="언어 설정"
+        android:textSize="30dp"
+        android:fontFamily="@font/bmj"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/blank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <!--한국어 버튼-->
+        <RadioButton
+            android:id="@+id/korean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bmj"
+            android:text="한국어" />
+        <!--영어 버튼-->
+        <RadioButton
+            android:id="@+id/english"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bmj"
+            android:text="ENGLISH" />
+        <!--일본어 버튼-->
+        <RadioButton
+            android:id="@+id/japanese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="日本語" />
+    </RadioGroup>
+</LinearLayout>

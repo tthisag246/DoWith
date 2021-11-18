@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+    <!--    캐릭터 이미지 -->
+    <ImageView
+        android:id="@+id/sd"
+        android:layout_width="114dp"
+        android:layout_height="311dp"
+        android:translationX="120dp"
+        android:translationY="230dp"
+        app:srcCompat="@drawable/sd1" />
+</RelativeLayout>

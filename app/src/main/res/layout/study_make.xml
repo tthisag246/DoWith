@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".study">
+
+    <!--    스터디 생성 화면-->
+    <!--    스터디 이름 라인-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <!--        스터디 이름 입력-->
+
+        <EditText
+            android:id="@+id/studyname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="이름을 입력하세요."
+            android:fontFamily="@font/bmj"
+            android:text=""
+            />
+
+        <!--        중복확인 버튼-->
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="112dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:text="중복확인"
+            android:fontFamily="@font/bmj"
+            tools:layout_editor_absoluteX="283dp"
+            tools:layout_editor_absoluteY="119dp" />
+
+    </LinearLayout>
+
+    <!--    스터디 설명-->
+
+    <!--    스터디 설명 입력-->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="스터디 설명"
+        android:fontFamily="@font/bmj"
+        android:textColor="#222222"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/name_edit"
+        android:layout_width="256dp"
+        android:layout_height="152dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="스터디 설명을 입력하세요."
+        android:fontFamily="@font/bmj"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <!--    가입방식 버튼-->
+    <ToggleButton
+        android:id="@+id/joinmethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="ToggleButton"
+        android:textOn="승인가입"
+        android:textOff="자유가입"
+        android:fontFamily="@font/bmj"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="543dp" />
+
+</LinearLayout>

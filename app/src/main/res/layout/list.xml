@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F2F2F6"
+    tools:context=".list" >
+
+    <!--제목 텍스트뷰 생성-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="List"
+        android:textColor="#222222"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/bmj"/>
+
+    <!--일정 목록 나열할 리스트뷰 생성-->
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="1700px"
+        android:layout_marginTop="20dp"
+        android:textColor="#222222"
+        android:translationY="50dp"
+        tools:listitem="@layout/list_item" />
+
+    <!--일정 추가 버튼 생성-->
+    <ImageButton
+        android:id="@+id/btnAddList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_circle"
+        android:translationX="330dp"
+        android:translationY="660dp" />
+
+</RelativeLayout>

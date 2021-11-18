@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageButton
+        android:id="@+id/back_reg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        app:srcCompat="@drawable/ic_round_arrow_back_ios_new_24"
+        app:tint="#8F6CB1" />
+    <!--회원가입 쪽이다-->
+    <TextView
+        android:id="@+id/userreg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/bmj"
+        android:text="회원가입" />
+    <TextView
+        android:id="@+id/userid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bmj"
+        android:layout_marginStart="10dp"
+        android:text="아이디" />
+    <!--아이디 쪽이다-->
+    <EditText
+        android:id="@+id/usereditid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:fontFamily="@font/bmj"
+        android:hint="아이디를 입력해 주세요."
+        android:inputType="textPersonName"
+        android:text="" />
+    <!--비밀번호 쪽이다-->
+    <TextView
+        android:id="@+id/userpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bmj"
+        android:layout_marginStart="10dp"
+        android:text="비밀번호" />
+
+    <EditText
+        android:id="@+id/usereditpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:fontFamily="@font/bmj"
+        android:hint="비밀번호를 입력해 주세요."
+        android:inputType="textPersonName"
+        android:text="" />
+    <TextView
+        android:id="@+id/userpassre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bmj"
+        android:layout_marginStart="10dp"
+        android:text="비밀번호 확인" />
+    <!--비밀번호 확인 쪽이다-->
+    <EditText
+        android:id="@+id/usereditpassre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:fontFamily="@font/bmj"
+        android:hint="비밀번호를 다시 입력해 주세요."
+        android:inputType="textPersonName"
+        android:text="" />
+    <!--이름 쪽이다-->
+    <TextView
+        android:id="@+id/nam3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bmj"
+        android:layout_marginStart="10dp"
+        android:text="이름" />
+
+    <EditText
+        android:id="@+id/usereditnam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="이름을 입력해 주세요."
+        android:inputType="textPersonName"
+        android:fontFamily="@font/bmj"
+        android:text="" />
+    <!--가입완료 버튼이다-->
+    <Button
+        android:id="@+id/userbutton8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8F6CB1"
+        android:textColor="#F2F2F6"
+        android:fontFamily="@font/bmj"
+        android:textSize="20dp"
+        android:text="가입 완료" />
+
+</LinearLayout>

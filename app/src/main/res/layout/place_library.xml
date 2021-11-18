@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".placeLibrary"
+    android:background="@drawable/library"
+    android:id="@+id/fullDisplay" >
+
+    <!--공간명 텍스트뷰 생성-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="40dp"
+        android:textAlignment="center"
+        android:text="공간명"
+        android:background="#55FFFFFF"
+        android:fontFamily="@font/bmj" />
+
+    <!--앱 잠금 버튼 생성-->
+    <Button
+        android:id="@+id/btnSwitch"
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="버튼"
+        android:textColor="@color/black"
+        android:translationX="330dp"
+        android:translationY="250dp" />
+
+
+</LinearLayout>

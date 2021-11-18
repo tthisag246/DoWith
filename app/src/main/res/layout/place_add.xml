@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".placeAdd">
+
+    <TextView
+        android:id="@+id/placeAddTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="공간 생성"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:layout_marginLeft="15dp"
+        android:textColor="#222222"
+        android:textSize="25dp"
+        android:fontFamily="@font/bmj"
+        android:layout_marginTop="10dp"/>
+
+    <!--orientation을 horizontal로 지정하기 위해 추가로 LinearLayout 생성-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--공간명 텍스트뷰 생성-->
+        <TextView
+            android:id="@+id/placeTitleView"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:text="공간명 "
+            android:gravity="right"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+        <!--공간명 입력할 에디트텍스트 생성-->
+        <EditText
+            android:id="@+id/placeTitle"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+    </LinearLayout>
+
+    <!--orientation을 horizontal로 지정하기 위해 추가로 LinearLayout 생성-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--공간 종류 텍스트뷰 생성-->
+        <TextView
+            android:id="@+id/placeTypeView"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:text="종류 "
+            android:gravity="right"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+        <!--공간 종류 선택할 라디오 그룹 생성-->
+        <RadioGroup
+            android:id="@+id/placeTheme"
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/selectLibrary"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="도서관"
+                android:textColor="#222222"
+                android:fontFamily="@font/bmj"/>
+
+            <RadioButton
+                android:id="@+id/selectConference"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="회의실"
+                android:textColor="#222222"
+                android:fontFamily="@font/bmj"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <!--orientation을 horizontal로 지정하기 위해 추가로 LinearLayout 생성-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--공간 비밀번호 텍스트뷰 생성-->
+        <TextView
+            android:id="@+id/placePwView"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:text="비밀번호 "
+            android:gravity="right"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+        <!--공간 비밀번호 입력할 에디트텍스트 생성-->
+        <EditText
+            android:id="@+id/placePw"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="number"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+    </LinearLayout>
+
+    <!--orientation을 horizontal로 지정하기 위해 추가로 LinearLayout 생성-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--공간 인원 텍스트뷰 생성-->
+        <TextView
+            android:id="@+id/placeNumView"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:text="인원 "
+            android:gravity="right"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+        <!--공간 인원 입력할 에디트텍스트 생성-->
+        <EditText
+            android:id="@+id/placeNum"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="number"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+    </LinearLayout>
+
+    <!--orientation을 horizontal로 지정하기 위해 추가로 LinearLayout 생성-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--공간 공개 여부 텍스트뷰 생성-->
+        <TextView
+            android:id="@+id/placePrivateView"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:text="비공개 "
+            android:gravity="right"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+        <!--공개 여부 설정할 스위치 생성-->
+        <Switch
+            android:id="@+id/placePrivateSwitch"
+            tools:ignore="UseSwitchCompatOrMaterialXml"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:checked="false" />
+
+    </LinearLayout>
+
+    <!--orientation을 horizontal로 지정하기 위해 추가로 LinearLayout 생성-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--공간 설명 텍스트뷰 생성-->
+        <TextView
+            android:id="@+id/placeMemoView"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:text="설명 "
+            android:gravity="right"
+            android:textSize="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
+
+        <!--공간 설명 입력할 에디트텍스트 생성-->
+        <EditText
+            android:id="@+id/placeMemo"
+            android:layout_width="230dp"
+            android:layout_height="150dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="공간에 대해 설명해 주세요."
+            android:textColorHint="#AAAAAA"
+            android:textColor="#222222"
+            android:gravity="top"
+            android:textSize="20dp"
+            android:fontFamily="@font/bmj" />
+
+    </LinearLayout>
+
+</LinearLayout>
