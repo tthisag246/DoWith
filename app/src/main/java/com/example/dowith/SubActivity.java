@@ -15,7 +15,7 @@ public class SubActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.language_setting);
         //언어 설정 레이아웃을 표시
-
+        //안녕하세요ㅛㅛㅛㅛㅛㅛ
         back = (ImageButton) findViewById(R.id.back_lang);
 
 
