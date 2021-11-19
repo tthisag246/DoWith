@@ -19,9 +19,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/bmj"
         android:text="계정 설정"
+        android:textColor="#222222"
         android:textSize="30dp"
         android:layout_gravity="center"
         />
@@ -31,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
@@ -39,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bmj"
+            android:textColor="#222222"
             android:textSize="20dp"
             android:text="이름: " />
         <EditText
@@ -48,6 +51,7 @@
             android:ems="10"
             android:fontFamily="@font/bmj"
             android:inputType="textPersonName"
+            android:textColorHint="#AAAAAA"
             android:hint="이름을 입력하세요."
             android:text=""
             />
@@ -66,12 +70,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bmj"
+            android:textColor="#222222"
             android:textSize="20dp"
             android:text="생일: " />
         <EditText
             android:id="@+id/Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="#AAAAAA"
             android:hint="생일을 입력해주세요"
             android:fontFamily="@font/bmj"
             android:textSize="20dp"
