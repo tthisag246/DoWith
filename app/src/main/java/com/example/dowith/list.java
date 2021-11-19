@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class list extends Fragment {
 
+    //깃허브 테스트
     private View view;
 
     @Override
