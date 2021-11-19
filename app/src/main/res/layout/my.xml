@@ -59,10 +59,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
 
-            android:textColor="#000000"
+
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/example1"
+            android:textColor="#222222"
             android:textSize="20dp"
             android:fontFamily="@font/bmj"
             android:text="@string/account"/>
@@ -77,6 +78,7 @@
             android:layout_marginEnd="5dp"
             android:background="@drawable/example1"
             android:fontFamily="@font/bmj"
+            android:textColor="#222222"
             android:textSize="20dp"
             android:text="@string/notification"/>
 
@@ -86,12 +88,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/example1"
-            android:textColor="#000000"
             android:gravity="center"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:fontFamily="@font/bmj"
             android:text="@string/dark"
+            android:textColor="#222222"
             android:textSize="20dp"
             android:paddingTop="10dp"/>
         <!--언어 설정 버튼이다-->
@@ -102,6 +104,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
+            android:textColor="#222222"
             android:textSize="20dp"
             android:fontFamily="@font/bmj"
             android:background="@drawable/example1"
@@ -115,6 +118,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
 
+            android:textColor="#222222"
             android:textSize="20dp"
             android:onClick="showDialog"
             android:background="@drawable/example1"
@@ -130,6 +134,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
+            android:textColor="#222222"
             android:textSize="20dp"
             android:fontFamily="@font/bmj"
             android:text="문의사항"/>
