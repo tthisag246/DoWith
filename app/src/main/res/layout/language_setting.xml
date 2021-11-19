@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="언어 설정"
+        android:textColor="#222222"
         android:textSize="30dp"
         android:fontFamily="@font/bmj"
         android:layout_gravity="center"/>
@@ -40,20 +41,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bmj"
+            android:textColor="#222222"
+            android:textSize="20dp"
             android:text="한국어" />
         <!--영어 버튼-->
         <RadioButton
+            android:layout_marginTop="10dp"
             android:id="@+id/english"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bmj"
+            android:textColor="#222222"
+            android:textSize="20dp"
             android:text="ENGLISH" />
         <!--일본어 버튼-->
         <RadioButton
+            android:layout_marginTop="10dp"
             android:id="@+id/japanese"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textColor="#222222"
+            android:textSize="18dp"
             android:text="日本語" />
     </RadioGroup>
 </LinearLayout>
