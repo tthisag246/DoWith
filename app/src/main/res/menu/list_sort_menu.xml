@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/listSortTitle"
+        android:title="제목" />
+
+    <item
+        android:id="@+id/listSortTime"
+        android:title="시간" />
+
+</menu>

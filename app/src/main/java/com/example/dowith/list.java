@@ -23,14 +23,15 @@ import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class list extends Fragment {
 
-    //깃허브 테스트
     private View view;
     ArrayList<listItem> tdList;
     ListView listView;
-    ImageButton btnAddList;
+    ImageButton btnFilterList, btnSortList, btnAddList;
     listAdapter listAdapter;
 
     @Override
@@ -42,10 +43,14 @@ public class list extends Fragment {
         tdList = new ArrayList<listItem>();
         //리스트뷰 변수 listView 생성, XML의 list에 대응시킴
         listView = (ListView) view.findViewById(R.id.list);
-        //버튼 변수 btnAddList 생성, XML의 btnAddList에 대응시킴
-        btnAddList = (ImageButton) view.findViewById(R.id.btnAddList);
         //커스텀 리스트뷰 listAdapter 변수 listAdapter 생성, list_item으로 형식 지정, tdList 배열 적용
         listAdapter = new listAdapter(getActivity(), R.layout.list_item, tdList);
+        //버튼 변수 btnFilterList 생성, XML의 btnFilterList에 대응시킴
+        btnFilterList = (ImageButton) view.findViewById(R.id.btnFilterList);
+        //버튼 변수 btnSortList 생성, XML의 btnSortList에 대응시킴
+        btnSortList = (ImageButton) view.findViewById(R.id.btnSortList);
+        //버튼 변수 btnAddList 생성, XML의 btnAddList에 대응시킴
+        btnAddList = (ImageButton) view.findViewById(R.id.btnAddList);
 
         //add() 메소드로 tdList에 항목 추가
         //추후에 DB와 연동되는 코드로 수정 필요
@@ -56,6 +61,33 @@ public class list extends Fragment {
 
         //listAdapter를 listView에 적용
         listView.setAdapter(listAdapter);
+
+        btnFilterList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dlg = new AlertDialog.Builder(list.this.getActivity());
+                dlg.setTitle("일정 종류");
+                dlg.setItems(new String[]{"취미", "운동"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //필터
+                    }
+                });
+                dlg.setPositiveButton("취소", null);
+                dlg.show();
+            }
+        });
+
+        //btnSortList를 길게 클릭하면 컨텍스트 메뉴 띄움
+        registerForContextMenu(btnSortList);
+
+//        //btnSortList를 클릭하면 컨텍스트 메뉴 띄움 (왜 안되지..)
+//        btnSortList.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                view.showContextMenu();
+//            }
+//        });
 
         //listView를 클릭하면 실행하는 코드 (체크 표시)
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,7 +100,6 @@ public class list extends Fragment {
 
         //listView를 길게 클릭하면 컨텍스트 메뉴 띄움
         registerForContextMenu(listView);
-
 
         //btnAddList 버튼을 클릭하면 실행하는 코드
         btnAddList.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +118,44 @@ public class list extends Fragment {
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater mInflater = getActivity().getMenuInflater();
-        mInflater.inflate(R.menu.list_menu, menu);
+        if(v == btnSortList) {
+            mInflater.inflate(R.menu.list_sort_menu, menu);
+        }
+        else if(v == listView) {
+            mInflater.inflate(R.menu.list_menu, menu);
+        }
     }
 
     //메뉴를 클릭했을 때 동작할 메소드
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.listSortTitle:
+                //제목으로 정렬
+                Comparator<listItem> cmpTitle = new Comparator<listItem>() {
+                    @Override
+                    public int compare(listItem t1, listItem t2) {
+                        return t1.listTitle.compareTo(t2.listTitle);
+                    }
+                };
+
+                Collections.sort(tdList, cmpTitle);
+
+                listAdapter.notifyDataSetChanged();
+                break;
+            case R.id.listSortTime:
+                //시간으로 정렬
+                Comparator<listItem> cmpTime = new Comparator<listItem>() {
+                    @Override
+                    public int compare(listItem t1, listItem t2) {
+                        return t1.listTime.compareTo(t2.listTime);
+                    }
+                };
+
+                Collections.sort(tdList, cmpTime);
+
+                listAdapter.notifyDataSetChanged();
+                break;
             case R.id.listItemEdit:
                 //Intent 생성, list_edit의 클래스 listEdit를 넘김
                 Intent intent = new Intent(getActivity(), listEdit.class);
