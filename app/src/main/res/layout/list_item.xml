@@ -60,9 +60,12 @@
         </LinearLayout>
 
         <!--일정 완료 체크박스 생성-->
+        <!--focusable="false"를 설정해야 클릭 리스너가 동작됨-->
         <CheckBox
+            android:id="@+id/listItemDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:translationX="340dp"
             android:translationY="25dp"/>
 

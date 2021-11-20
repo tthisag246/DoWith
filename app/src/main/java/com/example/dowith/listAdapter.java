@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -50,11 +51,13 @@ public class listAdapter extends BaseAdapter {
         TextView listItemType = (TextView) view.findViewById(R.id.listItemType);
         TextView listItemTime = (TextView) view.findViewById(R.id.listItemTime);
         TextView listItemMemo = (TextView) view.findViewById(R.id.listItemMemo);
+        CheckBox listItemDone = (CheckBox) view.findViewById(R.id.listItemDone);
 
         listItemTitle.setText(ar.get(i).getItem_title());
         listItemType.setText(ar.get(i).getItem_type());
         listItemTime.setText(ar.get(i).getItem_time());
         listItemMemo.setText(ar.get(i).getItem_memo());
+        listItemDone.setChecked(ar.get(i).getItem_done());
 
         return view;
     }
