@@ -24,11 +24,12 @@
         android:textStyle="bold" />
 
     <ListView
-        android:id="@+id/joinlist"
+        android:id="@+id/studylist"
         android:layout_width="match_parent"
         android:layout_height="644dp"
         android:fontFamily="@font/bmj"
-        android:translationY="80dp" />
+        android:translationY="80dp"
+        tools:listitem="@layout/study_item"/>
 
     <!--스터디 생성 버튼-->
     <ImageButton
