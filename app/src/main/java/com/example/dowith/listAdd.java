@@ -1,14 +1,18 @@
 package com.example.dowith;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 
@@ -17,16 +21,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class listAdd extends AppCompatActivity {
     int selected;
+
+    private static String IP_ADDRESS = "1.235.114.94";
+    private static String TAG = "list_insert";
+
+
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_add);
+
 
         //Calendar 클래스의 인스턴스를 반환해서 myCalendar에 저장 (Calendar는 추상클래스이므로 인스턴스 생성 불가)
         Calendar myCalendar = Calendar.getInstance();
@@ -41,10 +57,12 @@ public class listAdd extends AppCompatActivity {
         EditText listEndTime = (EditText) findViewById(R.id.listEndTime);
         //에디트텍스트 변수 ListType 생성, XML의 ListType에 대응시킴
         EditText ListType = (EditText) findViewById(R.id.ListType);
+
         //버튼 변수 btnListCancel 생성, XML의 btnListCancel에 대응시킴
         Button btnListCancel = (Button) findViewById(R.id.btnListCancel);
         //버튼 변수 btnListSave 생성, XML의 btnListSave에 대응시킴
         Button btnListSave = (Button) findViewById(R.id.btnListSave);
+
 
         //클릭 시 동작하는 리스너 정의
         View.OnClickListener datecl = new View.OnClickListener() {
@@ -60,9 +78,11 @@ public class listAdd extends AppCompatActivity {
                         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.KOREA);
                         //listStartDate를 클릭해서 동작됐으면 listStartDate에 데이터 저장
-                        if (v.getId() == R.id.listStartDate) listStartDate.setText(sdf.format(myCalendar.getTime()));
+                        if (v.getId() == R.id.listStartDate)
+                            listStartDate.setText(sdf.format(myCalendar.getTime()));
                             //listEndDate를 클릭해서 동작됐으면 listEndDate에 데이터 저장
-                        else if (v.getId() == R.id.listEndDate) listEndDate.setText(sdf.format(myCalendar.getTime()));
+                        else if (v.getId() == R.id.listEndDate)
+                            listEndDate.setText(sdf.format(myCalendar.getTime()));
 
                     }
                 }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -95,9 +115,11 @@ public class listAdd extends AppCompatActivity {
                             state = "PM";
                         }
                         //listStartTime를 클릭해서 동작됐으면 listStartTime에 데이터 저장, 형식은 "AM 12시 00분"
-                        if (v.getId() == R.id.listStartTime) listStartTime.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
+                        if (v.getId() == R.id.listStartTime)
+                            listStartTime.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
                             //listEndTime를 클릭해서 동작됐으면 listEndTime에 데이터 저장, 형식은 "AM 12시 00분"
-                        else if (v.getId() == R.id.listEndTime) listEndTime.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
+                        else if (v.getId() == R.id.listEndTime)
+                            listEndTime.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");
@@ -114,7 +136,7 @@ public class listAdd extends AppCompatActivity {
         ListType.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //종류에 나열할 내용을 String 배열로 미리 정의
-                final String[] typeArray = new String[] {"공부", "운동", "아침루틴", "저녁루틴", "취미"};
+                final String[] typeArray = new String[]{"공부", "운동", "아침루틴", "저녁루틴", "취미"};
 
                 //대화상자 생성
                 AlertDialog.Builder dlg = new AlertDialog.Builder(listAdd.this);
@@ -151,13 +173,124 @@ public class listAdd extends AppCompatActivity {
             }
         });
 
+
+        //저장 버튼을 클릭했을 때
         btnListSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //DB에 연동하는 코드 추가 필요
-                finish();
+                String td_id = "234";
+                String user_id = "1";
+                String td_name = "11";
+                String td_content = "11";
+                String td_cate = "1";
+                String td_start = "234";
+                String td_finish  = "23";
+                String td_yn = "1";
+
+                SaveData task = new SaveData();
+                task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_id, user_id, td_name, td_content, td_cate, td_start
+                ,td_finish, td_yn);
+
             }
         });
+
+    }
+
+    class SaveData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(listAdd.this,
+                    "Please Wait", null, true, true);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+//            mTextViewResult.setText(result);
+            Log.d(TAG, "POST response  - " + result);
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String td_id = (String) params[1];
+            String user_id = (String) params[2];
+            String td_name = (String) params[3];
+            String td_content = (String) params[4];
+            String td_cate = (String) params[5];
+            String td_start = (String) params[6];
+            String td_finish = (String) params[7];
+            String td_yn = (String) params[8];
+
+            String serverURL = (String) params[0];
+            String postParameters = "td_id=" + td_id + "&user_id=" + user_id + "&td_name=" + td_name
+                    + "&td_content=" + td_content+ "&td_cate=" + td_cate+ "&td_start=" + td_start+ "&td_finish=" + td_finish
+                    + "&td_yn=" + td_yn;
+
+
+            //오류나면 출력
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                } else {
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
 
     }
 }
