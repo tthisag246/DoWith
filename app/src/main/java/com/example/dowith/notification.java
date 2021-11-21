@@ -45,34 +45,47 @@ public class notification extends AppCompatActivity {
 
 
         // 먼저 리소스 파일인 Arraylist를 만듦
-        ArrayList<String> noti_words = new ArrayList<String>();
-        noti_words.add("'네트워크 과제 제출' 일정이 종료되었습니다!");
-        noti_words.add("'공부안하면내가개' 님이 친구 추가하셨습니다.");
-        noti_words.add("'연말정산' 이벤트가 등록되었습니다. 확인해보세요!");
-        noti_words.add("'매일 30분 운동하기' 일정 시작 5분 전입니다!");
-        noti_words.add("'체력거지' 스터디에서 새 공지를 등록했습니다.");
-        noti_words.add("'토익 990점 맞자' 스터디에서 새로운 공지를 등록했습니다.");
-        noti_words.add("'눈나나' 님이 친구 추가하셨습니다.");
-        noti_words.add("'매일 30분 운동하기' 일정 시작 5분 전입니다!");
-        noti_words.add("'플젝 과제 제출' 일정이 종료되었습니다!");
-        noti_words.add("'김냠' 님이 친구 추가하셨습니다.");
-        noti_words.add("'매일 30분 운동하기' 일정 시작 5분 전입니다!");
-        noti_words.add("'먹고죽자' 스터디에서 새 공지를 등록했습니다.");
-        noti_words.add("'토익 990점 맞자' 스터디에서 새로운 공지를 등록했습니다.");
-        noti_words.add("'매일 30분 운동하기' 일정 시작 5분 전입니다!");
+        ArrayList <notiItem> noti_words = new ArrayList<notiItem>();
+        noti_words.add(new notiItem("'네트워크 과제 제출' 일정이 종료되었습니다!"));
+        noti_words.add(new notiItem("'공부안하면내가개' 님이 친구 추가하셨습니다."));
+        noti_words.add(new notiItem("'연말정산' 이벤트가 등록되었습니다. 확인해보세요!"));
+        noti_words.add(new notiItem("'매일 30분 운동하기' 일정 시작 5분 전입니다!"));
+        noti_words.add(new notiItem("'체력거지' 스터디에서 새 공지를 등록했습니다."));
+        noti_words.add(new notiItem("'토익 990점 맞자' 스터디에서 새로운 공지를 등록했습니다."));
+        noti_words.add(new notiItem("'눈나나' 님이 친구 추가하셨습니다."));
+        noti_words.add(new notiItem("'매일 30분 운동하기' 일정 시작 5분 전입니다!"));
+        noti_words.add(new notiItem("'플젝 과제 제출' 일정이 종료되었습니다!"));
+        noti_words.add(new notiItem("'김냠' 님이 친구 추가하셨습니다."));
+        noti_words.add(new notiItem("'매일 30분 운동하기' 일정 시작 5분 전입니다!"));
+        noti_words.add(new notiItem("'먹고죽자' 스터디에서 새 공지를 등록했습니다."));
+        noti_words.add(new notiItem("'토익 990점 맞자' 스터디에서 새로운 공지를 등록했습니다."));
+        noti_words.add(new notiItem("'매일 30분 운동하기' 일정 시작 5분 전입니다!"));
+        noti_words.add(new notiItem("'플젝 과제 제출' 일정이 종료되었습니다!"));
+        noti_words.add(new notiItem("'김냠' 님이 친구 추가하셨습니다."));
+        noti_words.add(new notiItem("'눈나나' 님이 친구 추가하셨습니다."));
+        noti_words.add(new notiItem("'매일 30분 운동하기' 일정 시작 5분 전입니다!"));
+        noti_words.add(new notiItem("'플젝 과제 제출' 일정이 종료되었습니다!"));
+        noti_words.add(new notiItem("'김냠' 님이 친구 추가하셨습니다."));
+        noti_words.add(new notiItem("'매일 30분 운동하기' 일정 시작 5분 전입니다!"));
+        noti_words.add(new notiItem("'먹고죽자' 스터디에서 새 공지를 등록했습니다."));
+        noti_words.add(new notiItem("'토익 990점 맞자' 스터디에서 새로운 공지를 등록했습니다."));
+        noti_words.add(new notiItem("'매일 30분 운동하기' 일정 시작 5분 전입니다!"));
+        noti_words.add(new notiItem("'플젝 과제 제출' 일정이 종료되었습니다!"));
+        noti_words.add(new notiItem("'김냠' 님이 친구 추가하셨습니다."));
 
         //ArrayAdapter를 만들어줌
         //android.R.layout에서 제공하는(단순히 TextView가 하나 있는 xml)custom layout을 이용함
         //ArrayList words 를 마지막 인수로 넣어줌
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(this, R.layout.noti_list_view, noti_words);
+        notiAdapter notiAdapter =
+                new notiAdapter(this, R.layout.noti_item, noti_words);
+
 
 
         //notifacation.xml파일에 있는 listView를 불러옴
         ListView listView = (ListView) findViewById(R.id.noti_list);
 
         //SetAdapter를 이용해 ListView와 ArrayAdapter를 연결함
-        listView.setAdapter(itemsAdapter);
+        listView.setAdapter(notiAdapter);
 
     }
 
