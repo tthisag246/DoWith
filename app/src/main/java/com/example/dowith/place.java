@@ -146,7 +146,7 @@ public class place extends Fragment {
                 String place_id;
 
                 String p_cate_id;
-                place_id = "5";
+                place_id = "50";
                 p_cate_id = "5";
 
 

@@ -77,6 +77,8 @@ public class register extends AppCompatActivity {
                 mEditTexpw.setText("");
                 mEditTextbirthdate.setText("");
                 mEditTextjoindate.setText("");
+
+                finish();
             }
         });
 

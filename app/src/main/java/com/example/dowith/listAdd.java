@@ -178,7 +178,7 @@ public class listAdd extends AppCompatActivity {
         btnListSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String td_id = "234";
+                String td_id = "23444";
                 String user_id = "1";
                 String td_name = "11";
                 String td_content = "11";
@@ -190,6 +190,8 @@ public class listAdd extends AppCompatActivity {
                 SaveData task = new SaveData();
                 task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_id, user_id, td_name, td_content, td_cate, td_start
                 ,td_finish, td_yn);
+
+                finish();
 
             }
         });
