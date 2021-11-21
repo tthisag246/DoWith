@@ -30,7 +30,7 @@
         <!--        스터디 이름 입력-->
 
         <EditText
-            android:id="@+id/studyname"
+            android:id="@+id/studyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -67,7 +67,7 @@
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/name_edit"
+        android:id="@+id/studyDesc"
         android:layout_width="256dp"
         android:layout_height="152dp"
         android:layout_gravity="center"
