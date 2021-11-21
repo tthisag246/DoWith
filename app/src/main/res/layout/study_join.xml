@@ -43,6 +43,7 @@
 
     <!--    스터디 검색-->
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/joinSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bmj"
@@ -84,7 +85,8 @@
         android:id="@+id/joinList"
         android:layout_width="match_parent"
         android:layout_height="636dp"
-        android:fontFamily="@font/bmj" />
+        android:fontFamily="@font/bmj"
+        tools:listitem="@layout/study_item"/>
 
 
 </LinearLayout>
