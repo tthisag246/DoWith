@@ -52,8 +52,3 @@ public class studyadapter extends BaseAdapter {
         return view;
     }
 }
-
-
-
-
-
