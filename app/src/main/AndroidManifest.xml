@@ -46,6 +46,7 @@
         <activity android:name=".friend1"/>
         <activity android:name=".friendRoom"/>
         <activity android:name=".listEdit"/>
+        <activity android:name=".placeLibraryLocked"/>
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="43at1c1c0p" />

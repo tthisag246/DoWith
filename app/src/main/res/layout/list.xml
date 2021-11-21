@@ -21,43 +21,52 @@
         android:textStyle="bold"
         android:fontFamily="@font/bmj"/>
 
-    <!--일정 필터 버튼 생성-->
-    <ImageButton
-        android:id="@+id/btnFilterList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@android:color/transparent"
-        android:padding="5dp"
-        android:src="@drawable/filter"
-        android:translationX="295dp"
-        android:translationY="50dp" />
-
-    <!--일정 정렬 버튼 생성-->
-    <ImageButton
-        android:id="@+id/btnSortList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@android:color/transparent"
-        android:padding="5dp"
-        android:src="@drawable/sort"
-        android:translationY="50dp"
-        android:translationX="330dp"/>
-
-
-
-    <!--일정 목록 나열할 리스트뷰 생성-->
-    <ListView
-        android:id="@+id/list"
+    <ScrollView
+        android:id="@+id/listScrollView"
         android:layout_width="match_parent"
-        android:layout_height="1700px"
-        android:layout_marginTop="10dp"
-        android:textColor="#222222"
-        android:translationY="100dp"
-        tools:listitem="@layout/list_item" />
+        android:layout_height="650dp"
+        android:translationY="70dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--일정 필터 버튼 생성-->
+                <ImageButton
+                    android:id="@+id/btnFilterList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:padding="5dp"
+                    android:src="@drawable/filter"
+                    android:translationX="295dp" />
+
+                <!--일정 정렬 버튼 생성-->
+                <ImageButton
+                    android:id="@+id/btnSortList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:padding="5dp"
+                    android:src="@drawable/sort"
+                    android:translationX="330dp"/>
+            </RelativeLayout>
+
+            <!--일정 목록 나열할 리스트뷰 생성-->
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:layout_marginTop="10dp"
+                tools:listitem="@layout/list_item" />
+        </LinearLayout>
+    </ScrollView>
 
     <!--일정 추가 버튼 생성-->
     <ImageButton

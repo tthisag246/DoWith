@@ -21,6 +21,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +34,7 @@ public class list extends Fragment {
     ListView listView;
     ImageButton btnFilterList, btnSortList, btnAddList;
     listAdapter listAdapter;
+    ScrollView listScrollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,8 +54,14 @@ public class list extends Fragment {
         //버튼 변수 btnAddList 생성, XML의 btnAddList에 대응시킴
         btnAddList = (ImageButton) view.findViewById(R.id.btnAddList);
 
+        listScrollView = (ScrollView) view.findViewById(R.id.listScrollView);
+
         //add() 메소드로 tdList에 항목 추가
         //추후에 DB와 연동되는 코드로 수정 필요
+        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
+        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
+        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
+        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
         tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
         tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
         tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
