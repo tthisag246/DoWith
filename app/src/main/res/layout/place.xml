@@ -48,6 +48,6 @@
         android:background="@android:color/transparent"
         android:src="@drawable/add_circle"
         android:translationX="330dp"
-        android:translationY="660dp" />
+        android:translationY="580dp" />
 
 </RelativeLayout>
