@@ -5,30 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".placeLibrary"
+    tools:context=".placeLibraryLocked"
     android:background="@drawable/library"
-    android:id="@+id/fullDisplay" >
-
-    <!--공간명 텍스트뷰 생성-->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="40dp"
-        android:textAlignment="center"
-        android:text="공간명"
-        android:fontFamily="@font/bmj" />
+    android:id="@+id/fullDisplay"
+    android:backgroundTint="#55000000"
+    android:backgroundTintMode="src_over">
 
     <!--앱 잠금 버튼 생성-->
     <Button
-        android:id="@+id/btnLibrarySwitch"
+        android:id="@+id/btnLockedSwitch"
         android:layout_width="50dp"
         android:layout_height="100dp"
         android:backgroundTint="#FFFFFF"
         android:text="버튼"
         android:textColor="@color/black"
         android:translationX="335dp"
-        android:translationY="250dp" />
+        android:translationY="300dp" />
 
 
 </LinearLayout>
