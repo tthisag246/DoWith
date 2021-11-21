@@ -6,20 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home">
 
-    <!--캐릭터 꾸미기 방 버튼-->
-    <Button
-        android:id="@+id/btnEditC"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="캐릭터 꾸미기"
-        android:textSize="18dp"
-        android:fontFamily="@font/bmj"
-        android:backgroundTint="#8F6CB1"
-        android:textColor="#F2F2F6"
-        android:translationX="270dp"
-        android:translationY="630dp" />
-
-    <!--    캐릭터 이미지 -->
+        <!--    캐릭터 이미지 -->
     <ImageView
         android:id="@+id/sd"
         android:layout_width="114dp"
@@ -27,6 +14,19 @@
         android:translationX="10dp"
         android:translationY="420dp"
         app:srcCompat="@drawable/sd1" />
+
+    <!--캐릭터 꾸미기 방 버튼-->
+    <Button
+        android:id="@+id/btnEditC"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8F6CB1"
+        android:fontFamily="@font/bmj"
+        android:text="캐릭터 꾸미기"
+        android:textColor="#F2F2F6"
+        android:textSize="18dp"
+        android:translationX="270dp"
+        android:translationY="590dp" />
 
     <!--방 꾸미기 페이지 이동 버튼-->
     <Button
@@ -40,7 +40,7 @@
         android:backgroundTint="#8F6CB1"
         android:textColor="#F2F2F6"
         android:translationX="270dp"
-        android:translationY="670dp" />
+        android:translationY="630dp" />
 
 <!--친구리스트 버튼-->
     <ImageButton
