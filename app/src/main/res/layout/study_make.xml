@@ -9,6 +9,17 @@
     tools:context=".study">
 
     <!--    스터디 생성 화면-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="스터디 생성"
+        android:textColor="#222222"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/bmj" />
     <!--    스터디 이름 라인-->
     <LinearLayout
         android:layout_width="wrap_content"
