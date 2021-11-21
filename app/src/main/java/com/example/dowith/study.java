@@ -1,23 +1,36 @@
 package com.example.dowith;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class study extends Fragment {
+
+    private static String IP_ADDRESS = "hanmao2.iptime.org";
+    private static String TAG = "Study_insert";
 
     private View view;
     View makeview;
@@ -35,7 +48,6 @@ public class study extends Fragment {
         ImageButton make = (ImageButton) view.findViewById(R.id.make);
         //버튼 변수 join 생성, XML의 join에 대응시킴
         ImageButton join = (ImageButton) view.findViewById(R.id.join);
-        //dfasdfsdf
 
         //add() 메소드로 studylist 항목 추
         studylist.add(new studyitem("수학 mentoring"));
@@ -69,10 +81,25 @@ public class study extends Fragment {
 
                 //대화상자 생성
                 AlertDialog.Builder dlg = new AlertDialog.Builder(study.this.getActivity());
+
                 dlg.setView(makeview);
+                 EditText studyName;
+                 EditText studyDesc;
+
+                studyName = (EditText) makeview.findViewById(R.id.studyName);
+                studyDesc = (EditText) makeview.findViewById(R.id.studyDesc);
+
                 dlg.setPositiveButton("생성", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
+                        String study_id = "11";
+                        String study_name = studyName.getText().toString();
+                        String study_desc = studyDesc.getText().toString();
+
+                        InsertData task = new InsertData();
+                        task.execute("http://" + IP_ADDRESS + "/dowith/Study_insert.php", study_id,study_name,study_desc);
+
                         //Intent 생성, study_chat로 화면 전환
                         Intent intent = new Intent(getActivity(), study_chat.class);
                         //study_chat 액티비티 실행
@@ -96,5 +123,93 @@ public class study extends Fragment {
             }
         });
         return view;
+    }
+
+    class InsertData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = progressDialog.show(study.this.getActivity(),
+            "Please Wait", null, true, true);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            Log.d(TAG, "POST response  - " + result);
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String study_id = (String) params[1];
+            String study_name = (String)params[2];
+            String study_desc = (String)params[3];
+
+            String serverURL = (String)params[0];
+            String postParameters = "study_id=" + study_id + "&study_name=" + study_name + "&study_desc=" + study_desc;
+
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
     }
 }
