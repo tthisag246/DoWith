@@ -1,10 +1,13 @@
 package com.example.dowith;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.LightingColorFilter;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.ColorInt;
@@ -12,22 +15,33 @@ import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.motion.utils.ViewSpline;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 
 public class place extends Fragment {
 
     private View view;
-    View placeEnterView, placeAddView;
+    View placeAddView;
+
+    private static String IP_ADDRESS = "hanmao2.iptime.org";
+    private static String TAG = "place_insert";
 
 
     @Override
@@ -123,12 +137,30 @@ public class place extends Fragment {
                 dlg.setCustomTitle(dlgTitle);
                 dlg.setIcon(R.drawable.add);
                 dlg.setView(placeAddView);
-                dlg.setPositiveButton("생성", new DialogInterface.OnClickListener() {
 
-                    //DB에 저장하는 코드 필요
+                EditText place_name_edit;
+                EditText place_desc_edit;
+
+                place_name_edit = (EditText) placeAddView.findViewById(R.id.placeTitle);
+                place_desc_edit = (EditText) placeAddView.findViewById(R.id.placeMemo);
+                String place_id;
+
+                String p_cate_id;
+                place_id = "5";
+                p_cate_id = "5";
+
+
+                dlg.setPositiveButton("생성", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        //DB에 저장하는 코드 필요
+                        String place_name = place_name_edit.getText().toString();
+                        String place_desc = place_desc_edit.getText().toString();
+
+                        InsertData task = new InsertData();
+                        task.execute("http://" + IP_ADDRESS + "/dowith/place_insert.php", place_id,place_name,place_desc,p_cate_id);
+
                         Intent intent = new Intent(getActivity(), placeLibrary.class);
                         startActivity(intent);
                     }
@@ -139,5 +171,95 @@ public class place extends Fragment {
         });
 
         return view;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class InsertData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(place.this.getActivity(),
+                    "공간을 추가합니다...", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            //Toast.makeText(place.this.getActivity(), result, Toast.LENGTH_SHORT);
+            Log.d(TAG, "POST response  - " + result);
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String place_id = (String) params[1];
+            String place_name = (String) params[2];
+            String place_desc = (String) params[3];
+            String p_cate_id = (String) params[4];
+
+            String serverURL = (String)params[0];
+            String postParameters = "place_id=" + place_id + "&place_name=" + place_name + "&place_desc=" + place_desc + "&p_cate_id=" + p_cate_id;
+
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+
+                bufferedReader.close();
+
+
+                return sb.toString();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+
+                return new String("Error: " + e.getMessage());
+            }
+
+        }
     }
 }
