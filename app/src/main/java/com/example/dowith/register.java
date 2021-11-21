@@ -1,27 +1,84 @@
 package com.example.dowith;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class register extends AppCompatActivity {
     ImageButton back;
     View.OnClickListener cl;
+
+    private static String IP_ADDRESS = "hanmao2.iptime.org";
+    private static String TAG = "user_insert";
+
+    private EditText mEditTextuserid;
+    private EditText mEditTextuseremail;
+    private EditText mEditTextname;
+    private EditText mEditTexpw;
+    private EditText mEditTextbirthdate;
+    private EditText mEditTextjoindate;
+    private TextView mTextViewResult;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
         //알림 설정 레이아웃을 표시해준다
         back = (ImageButton) findViewById(R.id.back_reg);
+        mEditTextuserid = (EditText)findViewById(R.id.editText_usrid);
+        mEditTextuseremail = (EditText)findViewById(R.id.editText_usrmail);
+        mEditTextname = (EditText)findViewById(R.id.editText_usrname);
+        mEditTexpw = (EditText)findViewById(R.id.editText_usrpw);
+        mEditTextbirthdate = (EditText)findViewById(R.id.editText_usrbirth);
+        mEditTextjoindate = (EditText)findViewById(R.id.editText_usrjoind);
+        mTextViewResult = (TextView) findViewById(R.id.textView_main_result);
+        mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
 
+
+        Button buttonInsert = (Button)findViewById(R.id.userbutton8);
+        buttonInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String user_id = mEditTextuserid.getText().toString();
+                String user_email = mEditTextuseremail.getText().toString();
+                String user_name = mEditTextname.getText().toString();
+                String user_pw = mEditTexpw.getText().toString();
+                String user_birth_date = mEditTextbirthdate.getText().toString();
+                String user_join_date = mEditTextjoindate.getText().toString();
+
+                InsertData task = new InsertData();
+                task.execute("http://" + IP_ADDRESS + "/dowith/user_insert.php", user_id, user_email, user_name, user_pw, user_birth_date, user_join_date);
+
+                mEditTextuserid.setText("");
+                mEditTextuseremail.setText("");
+                mEditTextname.setText("");
+                mEditTexpw.setText("");
+                mEditTextbirthdate.setText("");
+                mEditTextjoindate.setText("");
+            }
+        });
 
         final ImageButton button1 = (ImageButton) findViewById(R.id.back_reg);
         button1.setOnClickListener(new View.OnClickListener(){
@@ -50,14 +107,100 @@ public class register extends AppCompatActivity {
             }
         });
 
-        Button btn8 = (Button) findViewById(R.id.userbutton8);
-        btn8.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), login.class);
-                startActivity(intent);
-            }//버튼을 눌렀을때 로그인 화면으로 가는 명령어이다
-        });
     }
+
+
+            class InsertData extends AsyncTask<String, Void, String> {
+                ProgressDialog progressDialog;
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+
+                    progressDialog = ProgressDialog.show(register.this,
+                            "Please Wait", null, true, true);
+                }
+
+
+                @Override
+                protected void onPostExecute(String result) {
+                    super.onPostExecute(result);
+
+                    progressDialog.dismiss();
+                    mTextViewResult.setText(result);
+                    Log.d(TAG, "POST response  - " + result);
+                }
+
+
+                @Override
+                protected String doInBackground(String... params) {
+
+                    String user_id = (String) params[1];
+                    String user_email = (String)params[2];
+                    String user_name = (String)params[3];
+                    String user_pw = (String)params[4];
+                    String user_birth_date = (String)params[5];
+                    String user_join_date = (String)params[6];
+
+                    String serverURL = (String)params[0];
+                    String postParameters = "user_id=" + user_id + "&user_email=" + user_email + "&user_name=" + user_name + "&user_pw=" + user_pw + "&user_birth_date=" + user_birth_date + "&user_join_date=" + user_join_date;
+
+
+                    try {
+
+                        URL url = new URL(serverURL);
+                        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                        httpURLConnection.setReadTimeout(5000);
+                        httpURLConnection.setConnectTimeout(5000);
+                        httpURLConnection.setRequestMethod("POST");
+                        httpURLConnection.connect();
+
+
+                        OutputStream outputStream = httpURLConnection.getOutputStream();
+                        outputStream.write(postParameters.getBytes("UTF-8"));
+                        outputStream.flush();
+                        outputStream.close();
+
+
+                        int responseStatusCode = httpURLConnection.getResponseCode();
+                        Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                        InputStream inputStream;
+                        if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                            inputStream = httpURLConnection.getInputStream();
+                        }
+                        else{
+                            inputStream = httpURLConnection.getErrorStream();
+                        }
+
+
+                        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                        StringBuilder sb = new StringBuilder();
+                        String line = null;
+
+                        while((line = bufferedReader.readLine()) != null){
+                            sb.append(line);
+                        }
+
+
+                        bufferedReader.close();
+
+
+                        return sb.toString();
+
+
+                    } catch (Exception e) {
+
+                        Log.d(TAG, "InsertData: Error ", e);
+
+                        return new String("Error: " + e.getMessage());
+                    }
+
+                }
+            }
+
 }
