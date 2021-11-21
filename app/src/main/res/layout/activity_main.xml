@@ -26,14 +26,14 @@
             app:srcCompat="@drawable/ic_baseline_notifications_24"
             app:tint="#8F6CB1" />
 
-        <!--하단네비게이션-->
+        <!--하단비게이션-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
+            android:translationY="681dp"
             android:background="#F2F2F6"
             app:itemIconSize="30dp"
             app:itemIconTint="@drawable/menu_selector_color"
@@ -41,6 +41,17 @@
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/menu" />
+        <!--구글 애드몹 광고-->
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            tools:ignore="MissingConstraints"></com.google.android.gms.ads.AdView>
 
     </FrameLayout>
 </RelativeLayout>
