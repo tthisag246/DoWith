@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 public class study extends Fragment {
 
+    //데이터베이스 서버의 ip주소 IP_ADDRESS에 적용
     private static String IP_ADDRESS = "hanmao2.iptime.org";
     private static String TAG = "Study_insert";
 
@@ -86,9 +87,12 @@ public class study extends Fragment {
                  EditText studyName;
                  EditText studyDesc;
 
+                //EditText 변수 studyName 생성, XML의 studyName에 대응시킴
                 studyName = (EditText) makeview.findViewById(R.id.studyName);
+                //EditText 변수 studyDesc 생성, XML의 studyDesc에 대응시킴
                 studyDesc = (EditText) makeview.findViewById(R.id.studyDesc);
 
+                //PositiveButton을 누르면 입력한 데이터를 InsertData class에 옮기는?
                 dlg.setPositiveButton("생성", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -98,6 +102,7 @@ public class study extends Fragment {
                         String study_desc = studyDesc.getText().toString();
 
                         InsertData task = new InsertData();
+                        //php파일 ip주소 연결
                         task.execute("http://" + IP_ADDRESS + "/dowith/Study_insert.php", study_id,study_name,study_desc);
 
                         //Intent 생성, study_chat로 화면 전환
@@ -128,14 +133,17 @@ public class study extends Fragment {
     class InsertData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
+        // 스레드가 시작하기 전에 수행할 작업(메인 스레드)
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
+            //php 파일에 데이터 보내기 전에 화면에 로딩 중 띄우는 코드?
             progressDialog = progressDialog.show(study.this.getActivity(),
             "Please Wait", null, true, true);
         }
 
+        // 스레드 작업이 모두 끝난 후에 수행할 작업(메인 스레드)
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -144,7 +152,9 @@ public class study extends Fragment {
             Log.d(TAG, "POST response  - " + result);
         }
 
-
+        //mysql에 데이터를 넣을 php 파일과 연동하는 코드?
+        //데이터베이스에 들어갈 데이터...
+        // 스레드가 수행할 작업(생성된 스레드)
         @Override
         protected String doInBackground(String... params) {
 
