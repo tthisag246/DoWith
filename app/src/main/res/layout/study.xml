@@ -26,10 +26,10 @@
     <ListView
         android:id="@+id/studylist"
         android:layout_width="match_parent"
-        android:layout_height="644dp"
+        android:layout_height="597dp"
         android:fontFamily="@font/bmj"
         android:translationY="80dp"
-        tools:listitem="@layout/study_item"/>
+        tools:listitem="@layout/study_item" />
 
     <!--스터디 생성 버튼-->
     <ImageButton
@@ -39,7 +39,7 @@
         android:background="@android:color/transparent"
         android:src="@drawable/add_circle"
         android:translationX="330dp"
-        android:translationY="660dp"/>
+        android:translationY="580dp"/>
 
     <!--스터디 가입 버튼-->
     <ImageButton
@@ -49,6 +49,6 @@
         android:background="@android:color/transparent"
         android:src="@drawable/ic_baseline_supervised_user_circle_24"
         android:translationX="330dp"
-        android:translationY="610dp"/>
+        android:translationY="530dp"/>
 
 </RelativeLayout>
