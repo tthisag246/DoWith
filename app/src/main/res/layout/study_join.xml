@@ -84,9 +84,9 @@
     <ListView
         android:id="@+id/joinList"
         android:layout_width="match_parent"
-        android:layout_height="636dp"
+        android:layout_height="515dp"
         android:fontFamily="@font/bmj"
-        tools:listitem="@layout/study_item"/>
+        tools:listitem="@layout/study_item" />
 
 
 </LinearLayout>
