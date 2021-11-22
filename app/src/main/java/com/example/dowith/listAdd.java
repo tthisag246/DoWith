@@ -178,7 +178,7 @@ public class listAdd extends AppCompatActivity {
         btnListSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String td_id = "23444";
+                String td_id = "234";
                 String user_id = "1";
                 String td_name = "11";
                 String td_content = "11";
@@ -192,7 +192,6 @@ public class listAdd extends AppCompatActivity {
                 ,td_finish, td_yn);
 
                 finish();
-
             }
         });
 
@@ -201,6 +200,7 @@ public class listAdd extends AppCompatActivity {
     class SaveData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
+        //작업 이전에 수행할 동작 구현
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -209,19 +209,19 @@ public class listAdd extends AppCompatActivity {
                     "Please Wait", null, true, true);
         }
 
+        //결과 파라미터를 리턴->스레드 작업이 끝났을 때의 동작 구현
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-//            mTextViewResult.setText(result);
             Log.d(TAG, "POST response  - " + result);
         }
 
 
         @Override
         protected String doInBackground(String... params) {
-
+            //파라미터를 배열로 전달받는 백그라운드 작업
             String td_id = (String) params[1];
             String user_id = (String) params[2];
             String td_name = (String) params[3];
@@ -244,7 +244,7 @@ public class listAdd extends AppCompatActivity {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-
+//                httpURL 연결 시간 지정
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
@@ -285,6 +285,7 @@ public class listAdd extends AppCompatActivity {
                 return sb.toString();
 
 
+            //오류가 발생하면 오류내용 출력
             } catch (Exception e) {
 
                 Log.d(TAG, "InsertData: Error ", e);
