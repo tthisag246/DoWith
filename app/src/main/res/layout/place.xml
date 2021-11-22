@@ -36,7 +36,7 @@
         <ListView
             android:id="@+id/placeListView"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="560dp"
             android:translationY="120dp"
             tools:listitem="@layout/place_item"/>
 
