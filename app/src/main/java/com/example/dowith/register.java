@@ -1,6 +1,7 @@
 package com.example.dowith;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,11 +26,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class register extends AppCompatActivity {
     ImageButton back;
     View.OnClickListener cl;
-
+    int selected;
+    Calendar myCalendar = Calendar.getInstance();
     private static String IP_ADDRESS = "hanmao2.iptime.org";
     private static String TAG = "user_insert";
 
@@ -37,7 +43,7 @@ public class register extends AppCompatActivity {
     private EditText mEditTextname;
     private EditText mEditTexpw;
     private EditText mEditTextbirthdate;
-    private EditText mEditTextjoindate;
+    private TextView mEditTextjoindate;
     private TextView mTextViewResult;
 
     @Override
@@ -51,9 +57,32 @@ public class register extends AppCompatActivity {
         mEditTextname = (EditText)findViewById(R.id.editText_usrname);
         mEditTexpw = (EditText)findViewById(R.id.editText_usrpw);
         mEditTextbirthdate = (EditText)findViewById(R.id.editText_usrbirth);
-        mEditTextjoindate = (EditText)findViewById(R.id.editText_usrjoind);
+        mEditTextjoindate = (TextView) findViewById(R.id.editText_usrjoind);
         mTextViewResult = (TextView) findViewById(R.id.textView_main_result);
         mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
+
+        //데이트 피커쪽
+        View.OnClickListener datecl = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //데이트피커 다이얼로그 박스 생성
+                new DatePickerDialog(register.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        //연, 월, 일 정보를 받아와서 "2021년 01월 01일" 형식으로 저장
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.KOREA);
+                        //mEditTextbirthdate를 클릭해서 동작됐으면 listStartDate에 데이터 저장
+                        if (v.getId() == R.id.editText_usrbirth)
+                            mEditTextbirthdate.setText(sdf.format(myCalendar.getTime()));
+                    }
+                }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        };
+
+        mEditTextbirthdate.setOnClickListener(datecl);
 
 
         Button buttonInsert = (Button)findViewById(R.id.userbutton8);
@@ -69,7 +98,7 @@ public class register extends AppCompatActivity {
                 String user_join_date = mEditTextjoindate.getText().toString();
 
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/dowith/user_insert.php", user_id, user_email, user_name, user_pw, user_birth_date, user_join_date);
+                task.execute("http://" + IP_ADDRESS + "/dowith/user_insert.php", user_id, user_email, user_name, user_pw,user_birth_date, user_join_date);
 
                 mEditTextuserid.setText("");
                 mEditTextuseremail.setText("");
@@ -77,7 +106,7 @@ public class register extends AppCompatActivity {
                 mEditTexpw.setText("");
                 mEditTextbirthdate.setText("");
                 mEditTextjoindate.setText("");
-
+                Toast.makeText(getApplicationContext(),"가입 완료되었습니다",Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -112,97 +141,97 @@ public class register extends AppCompatActivity {
     }
 
 
-            class InsertData extends AsyncTask<String, Void, String> {
-                ProgressDialog progressDialog;
+    class InsertData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
 
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-                    progressDialog = ProgressDialog.show(register.this,
-                            "Please Wait", null, true, true);
+            progressDialog = ProgressDialog.show(register.this,
+                    "Please Wait", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            mTextViewResult.setText(result);
+            Log.d(TAG, "POST response  - " + result);
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String user_id = (String) params[1];
+            String user_email = (String)params[2];
+            String user_name = (String)params[3];
+            String user_pw = (String)params[4];
+            String user_birth_date = (String)params[5];
+            String user_join_date = (String)params[6];
+
+            String serverURL = (String)params[0];
+            String postParameters = "user_id=" + user_id + "&user_email=" + user_email + "&user_name=" + user_name + "&user_pw=" + user_pw + "&user_birth_date=" + user_birth_date + "&user_join_date=" + user_join_date;
+
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
                 }
 
 
-                @Override
-                protected void onPostExecute(String result) {
-                    super.onPostExecute(result);
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-                    progressDialog.dismiss();
-                    mTextViewResult.setText(result);
-                    Log.d(TAG, "POST response  - " + result);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
                 }
 
 
-                @Override
-                protected String doInBackground(String... params) {
-
-                    String user_id = (String) params[1];
-                    String user_email = (String)params[2];
-                    String user_name = (String)params[3];
-                    String user_pw = (String)params[4];
-                    String user_birth_date = (String)params[5];
-                    String user_join_date = (String)params[6];
-
-                    String serverURL = (String)params[0];
-                    String postParameters = "user_id=" + user_id + "&user_email=" + user_email + "&user_name=" + user_name + "&user_pw=" + user_pw + "&user_birth_date=" + user_birth_date + "&user_join_date=" + user_join_date;
+                bufferedReader.close();
 
 
-                    try {
-
-                        URL url = new URL(serverURL);
-                        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                return sb.toString();
 
 
-                        httpURLConnection.setReadTimeout(5000);
-                        httpURLConnection.setConnectTimeout(5000);
-                        httpURLConnection.setRequestMethod("POST");
-                        httpURLConnection.connect();
+            } catch (Exception e) {
 
+                Log.d(TAG, "InsertData: Error ", e);
 
-                        OutputStream outputStream = httpURLConnection.getOutputStream();
-                        outputStream.write(postParameters.getBytes("UTF-8"));
-                        outputStream.flush();
-                        outputStream.close();
-
-
-                        int responseStatusCode = httpURLConnection.getResponseCode();
-                        Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                        InputStream inputStream;
-                        if(responseStatusCode == HttpURLConnection.HTTP_OK) {
-                            inputStream = httpURLConnection.getInputStream();
-                        }
-                        else{
-                            inputStream = httpURLConnection.getErrorStream();
-                        }
-
-
-                        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                        StringBuilder sb = new StringBuilder();
-                        String line = null;
-
-                        while((line = bufferedReader.readLine()) != null){
-                            sb.append(line);
-                        }
-
-
-                        bufferedReader.close();
-
-
-                        return sb.toString();
-
-
-                    } catch (Exception e) {
-
-                        Log.d(TAG, "InsertData: Error ", e);
-
-                        return new String("Error: " + e.getMessage());
-                    }
-
-                }
+                return new String("Error: " + e.getMessage());
             }
+
+        }
+    }
 
 }
