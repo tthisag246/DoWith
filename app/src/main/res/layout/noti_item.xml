@@ -15,13 +15,13 @@
         <!--공간 제목 텍스트뷰 생성-->
         <TextView
             android:id="@+id/notiItemTitle"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="354dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/bmj"
             android:text=""
-            android:textSize="20dp"
-            android:translationX="20dp"
             android:textColor="#222222"
-            android:fontFamily="@font/bmj"/>
+            android:textSize="20dp"
+            android:translationX="20dp" />
 
     </LinearLayout>
 </LinearLayout>
