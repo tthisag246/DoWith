@@ -35,7 +35,7 @@
             android:layout_width="198dp"
             android:layout_height="142dp"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/account_round" />
+            app:srcCompat="@drawable/bonobono" />
 
         <Button
             android:id="@+id/button6"
