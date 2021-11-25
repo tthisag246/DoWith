@@ -14,7 +14,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="MyPage"
-
+        android:fontFamily="@font/bmj"
         android:textColor="#222222"
         android:textSize="30dp"
         android:textStyle="bold" />
@@ -35,13 +35,14 @@
             android:layout_width="198dp"
             android:layout_height="142dp"
             android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/account_round" />
+            app:srcCompat="@drawable/bonobono" />
 
         <Button
             android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:background="@drawable/exam"
+            android:fontFamily="@font/bmj"
             android:text="프로필 설정" />
 
     </LinearLayout>

@@ -26,7 +26,7 @@
             app:srcCompat="@drawable/ic_baseline_notifications_24"
             app:tint="#8F6CB1"
             android:elevation="1dp"/>
-
+      
         <!--하단비게이션-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavi"
@@ -42,6 +42,7 @@
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/menu" />
+
         <!--구글 애드몹 광고-->
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
@@ -54,6 +55,7 @@
             app:adUnitId="ca-app-pub-3940256099942544/6300978111"
             tools:ignore="MissingConstraints"
             android:elevation="1dp"/>
+        </com.google.android.gms.ads.AdView>
 
     </FrameLayout>
 </RelativeLayout>
