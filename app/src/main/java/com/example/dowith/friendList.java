@@ -84,7 +84,14 @@ public class friendList extends AppCompatActivity {
         friendList.add(new friendItem("U혜"));
         friendList.add(new friendItem("hansadfn"));
         friendList.add(new friendItem("엠비씨유료방송"));
-        friendList.add(new friendItem("강쥐"));
+        friendList.add(new friendItem("고앵"));
+        friendList.add(new friendItem("하리보젤리"));
+        friendList.add(new friendItem("슐웩"));
+        friendList.add(new friendItem("오만원"));
+        friendList.add(new friendItem("테스트"));
+        friendList.add(new friendItem("what"));
+        friendList.add(new friendItem("쿠우"));
+        friendList.add(new friendItem("둘째동생"));
 
 
         //freind_list_view.xml파일에 있는 listView를 불러옴
