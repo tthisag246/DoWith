@@ -99,7 +99,8 @@ public class place extends Fragment {
         placeList.add(new placeItem("IT소프트웨어과 2학년 B반 공부방", "도서관"));
         placeList.add(new placeItem("백투더오피스 회의실", "회의실"));
         placeList.add(new placeItem("hihi", "도서관"));
-        placeList.add(new placeItem("놀고 싶다...", "도서관"));        placeList.add(new placeItem("8시간 폰 잠금방", "도서관"));
+        placeList.add(new placeItem("놀고 싶다...", "도서관"));
+        placeList.add(new placeItem("8시간 폰 잠금방", "도서관"));
         placeList.add(new placeItem("IT소프트웨어과 2학년 B반 공부방", "도서관"));
         placeList.add(new placeItem("백투더오피스 회의실", "회의실"));
         placeList.add(new placeItem("hihi", "도서관"));

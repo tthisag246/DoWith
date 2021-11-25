@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#BFA1DC">
+    android:background="@drawable/gradient">
+
+    <!--    BFA1DC-->
 
     <!--    뚜두 이미지 삽입-->
     <ImageView
