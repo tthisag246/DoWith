@@ -46,7 +46,7 @@ public class place extends Fragment {
     private View view;
     View placeAddView;
 
-    private static String IP_ADDRESS = "192.168.1.131";
+    private static String IP_ADDRESS = "hanmao2.iptime.org";
     private static String TAG = "placeDB";
 
     public static String placeName;
