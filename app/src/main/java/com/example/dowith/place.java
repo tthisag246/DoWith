@@ -114,6 +114,7 @@ public class place extends Fragment {
 
         //add() 메소드로 placeList에 항목 추가
         //DB데이터 불러오는 코드로 수정해야 함
+      
 //        placeList.add(new placeItem("8시간 폰 잠금방", "도서관"));
 //        placeList.add(new placeItem("IT소프트웨어과 2학년 B반 공부방", "도서관"));
 //        placeList.add(new placeItem("백투더오피스 회의실", "회의실"));
