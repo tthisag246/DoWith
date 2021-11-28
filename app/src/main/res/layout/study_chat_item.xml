@@ -12,9 +12,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
 
-        <!--공간 제목 텍스트뷰 생성-->
+        <!--채팅 내용 텍스트뷰 생성-->
         <TextView
-            android:id="@+id/placeItemTitle"
+            android:id="@+id/chatItemContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
@@ -24,15 +24,15 @@
             android:textColor="#222222"
             android:fontFamily="@font/bmj"/>
 
-        <!--공간 종류 텍스트뷰 생성-->
+        <!--채팅 시간 텍스트뷰 생성-->
         <TextView
-            android:id="@+id/placeItemType"
+            android:id="@+id/chatItemTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:textColor="#222222"
+            android:textColor="#AAAAAA"
             android:fontFamily="@font/bmj"/>
     </LinearLayout>
 </LinearLayout>
