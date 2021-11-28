@@ -1,6 +1,7 @@
 package com.example.dowith;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -24,13 +26,16 @@ import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,7 +52,10 @@ public class list extends Fragment {
     listAdapter listAdapter;
     ScrollView listScrollView;
 
+    private static String IP_ADDRESS = "hanmao2.iptime.org";
+    private static String TAG = "todoListDB";
 
+    String mJsonString;
 
 
     @Override
@@ -70,26 +78,33 @@ public class list extends Fragment {
 
         listScrollView = (ScrollView) view.findViewById(R.id.listScrollView);
 
-        //add() 메소드로 tdList에 항목 추가
-        //추후에 DB와 연동되는 코드로 수정 필요
-        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
-        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
-        tdList.add(new listItem("영단어50 외기", "취미", "10:00~11:00", "전날 거 꼭 복습하기", false));
-        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
-        tdList.add(new listItem("저녁 운동", "운동", "22:00~23:00", "텀블러 챙기기", false));
-        tdList.add(new listItem("펠트 공예", "취미", "16:00~16:20", "남은거 마저 하기", false));
-        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
-        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
+        listView.setAdapter(listAdapter);
+
+        tdList.clear();
+        listAdapter.notifyDataSetChanged();
+
+        GetData task = new GetData();
+        task.execute( "http://" + IP_ADDRESS + "/dowith/list_getjson.php", "");
+
+//        //add() 메소드로 tdList에 항목 추가
+//        //추후에 DB와 연동되는 코드로 수정 필요
+//        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
+//        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
+//        tdList.add(new listItem("영단어50 외기", "취미", "10:00~11:00", "전날 거 꼭 복습하기", false));
+//        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
+//        tdList.add(new listItem("저녁 운동", "운동", "22:00~23:00", "텀블러 챙기기", false));
+//        tdList.add(new listItem("펠트 공예", "취미", "16:00~16:20", "남은거 마저 하기", false));
+//        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
+//        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
 
         //listAdapter를 listView에 적용
-        listView.setAdapter(listAdapter);
 
         btnFilterList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(list.this.getActivity());
                 dlg.setTitle("일정 종류");
-                dlg.setItems(new String[]{"취미", "운동"}, new DialogInterface.OnClickListener() {
+                dlg.setItems(new String[]{"공부", "운동", "아침루틴", "저녁루틴", "취미"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //필터
@@ -126,10 +141,6 @@ public class list extends Fragment {
         });
         return view;
     }
-
-
-
-
 
 
     //컨텍스트 메뉴를 등록한다.
@@ -190,4 +201,157 @@ public class list extends Fragment {
         }
         return true;
     }
+
+    private class GetData extends AsyncTask<String, Void, String>{
+
+        ProgressDialog progressDialog;
+        String errorString = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(list.this.getActivity(),
+                    "데이터를 불러오는 중...", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            Toast.makeText(list.this.getActivity(), result, Toast.LENGTH_SHORT);
+            Log.d(TAG, "response - " + result);
+
+            if (result == null){
+
+                Toast.makeText(list.this.getActivity(), errorString, Toast.LENGTH_SHORT);
+            }
+            else {
+
+                mJsonString = result;
+                showResult();
+            }
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String serverURL = params[0];
+            String postParameters = "list_name=" + params[1];
+
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+                errorString = e.toString();
+
+                return null;
+            }
+
+        }
+    }
+
+    private void showResult(){
+
+        String TAG_JSON="todo_lists"; //테이블명
+        String TAG_ID = "td_id";
+        String TAG_NAME ="td_name";
+        String TAG_CONTENT ="td_content";
+        String TAG_CATE ="td_cate";
+        String TAG_START ="td_start";
+        String TAG_FINISH ="td_finish";
+        String TAG_YN = "td_yn";
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+            for(int i=0;i<jsonArray.length();i++){
+
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String td_id = item.getString(TAG_ID);
+                String td_name = item.getString(TAG_NAME);
+                String td_content = item.getString(TAG_CONTENT);
+                String td_cate = item.getString(TAG_CATE);
+                String td_start = item.getString(TAG_START);
+                String td_finish = item.getString(TAG_FINISH);
+                String td_yn = item.getString(TAG_YN);
+
+
+                listItem listItem = new listItem();
+
+                listItem.setItem_ID(td_id);
+                listItem.setItem_title(td_name);
+                listItem.setItem_memo(td_content);
+                listItem.setItem_type(td_cate);
+                listItem.setItem_time("시작: " + td_start + " 종료:" + td_finish);
+                listItem.setItem_done(td_yn == "1"? true:false);
+
+
+                tdList.add(listItem);
+                listAdapter.notifyDataSetChanged();
+            }
+
+
+
+        } catch (JSONException e) {
+
+            Log.d(TAG, "showResult : ", e);
+        }
+
+    }
+
+
+
 }
