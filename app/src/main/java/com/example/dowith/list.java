@@ -2,6 +2,7 @@ package com.example.dowith;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,10 +23,20 @@ import android.widget.ListView;
 import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ScrollView;
+import android.widget.SimpleAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class list extends Fragment {
 
@@ -35,6 +46,9 @@ public class list extends Fragment {
     ImageButton btnFilterList, btnSortList, btnAddList;
     listAdapter listAdapter;
     ScrollView listScrollView;
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,10 +74,10 @@ public class list extends Fragment {
         //추후에 DB와 연동되는 코드로 수정 필요
         tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
         tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
-        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
+        tdList.add(new listItem("영단어50 외기", "취미", "10:00~11:00", "전날 거 꼭 복습하기", false));
         tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
-        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
-        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
+        tdList.add(new listItem("저녁 운동", "운동", "22:00~23:00", "텀블러 챙기기", false));
+        tdList.add(new listItem("펠트 공예", "취미", "16:00~16:20", "남은거 마저 하기", false));
         tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
         tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
 
@@ -89,14 +103,6 @@ public class list extends Fragment {
         //btnSortList를 길게 클릭하면 컨텍스트 메뉴 띄움
         registerForContextMenu(btnSortList);
 
-//        //btnSortList를 클릭하면 컨텍스트 메뉴 띄움 (왜 안되지..)
-//        btnSortList.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                view.showContextMenu();
-//            }
-//        });
-
         //listView를 클릭하면 실행하는 코드 (체크 표시)
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -120,6 +126,11 @@ public class list extends Fragment {
         });
         return view;
     }
+
+
+
+
+
 
     //컨텍스트 메뉴를 등록한다.
     @Override

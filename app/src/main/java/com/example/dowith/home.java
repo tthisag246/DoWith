@@ -1,30 +1,58 @@
 package com.example.dowith;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class home extends Fragment // Fragment 클래스를 상속받아야한다
 {
 
     private View view;
+    ImageView imageView;
+    GestureDetector detector;
+    float prevX, prevY;
 
-
-
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        view = inflater.inflate(R.layout.home,container,false); //
+        view = inflater.inflate(R.layout.home,container,false);
+        imageView = (ImageView) view.findViewById(R.id.sd);
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        prevX = event.getX();
+                        prevY = event.getY();
+                    break;
+                    case MotionEvent.ACTION_MOVE:
+                        float dx = event.getX() - prevX;
+                        float dy = event.getY() - prevY;
+                        v.setX(v.getX() + dx); v.setY(v.getY() + dy);
+                        break;
+                        case MotionEvent.ACTION_CANCEL:
+                            case MotionEvent.ACTION_UP:
+                                break;
+                } return true;
+            }
+        });
+
+
+
         Button btn_cha = (Button) view.findViewById(R.id.btnEditC); //btnEditC버튼 지정하는 버튼 변수명
         btn_cha.setOnClickListener(new View.OnClickListener() { //btnEditC 버튼을 클릭 시
             @Override

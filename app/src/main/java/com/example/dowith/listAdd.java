@@ -34,8 +34,10 @@ import java.util.Locale;
 public class listAdd extends AppCompatActivity {
     int selected;
 
-    private static String IP_ADDRESS = "1.235.114.94";
+    private static String IP_ADDRESS = "192.168.0.17";
     private static String TAG = "list_insert";
+    int count;
+
 
 
     @Override
@@ -47,6 +49,8 @@ public class listAdd extends AppCompatActivity {
         //Calendar 클래스의 인스턴스를 반환해서 myCalendar에 저장 (Calendar는 추상클래스이므로 인스턴스 생성 불가)
         Calendar myCalendar = Calendar.getInstance();
 
+        //에디트텍스트 변수 listTitle 생성, XML의 listTitle에 대응시킴
+        EditText listTitle = (EditText) findViewById(R.id.listTitle);
         //에디트텍스트 변수 listStartDate 생성, XML의 listStartDate에 대응시킴
         EditText listStartDate = (EditText) findViewById(R.id.listStartDate);
         //에디트텍스트 변수 listEndDate 생성, XML의 listEndDate에 대응시킴
@@ -57,6 +61,8 @@ public class listAdd extends AppCompatActivity {
         EditText listEndTime = (EditText) findViewById(R.id.listEndTime);
         //에디트텍스트 변수 ListType 생성, XML의 ListType에 대응시킴
         EditText ListType = (EditText) findViewById(R.id.ListType);
+        //에디트텍스트 변수 listMemo 생성, XML의 listMemo에 대응시킴
+        EditText listMemo = (EditText) findViewById(R.id.listMemo);
 
         //버튼 변수 btnListCancel 생성, XML의 btnListCancel에 대응시킴
         Button btnListCancel = (Button) findViewById(R.id.btnListCancel);
@@ -178,14 +184,16 @@ public class listAdd extends AppCompatActivity {
         btnListSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String td_id = "234";
+                count++;
+                //카운트 증가 안함
+                String td_id = Integer.toString(count);
                 String user_id = "1";
-                String td_name = "11";
-                String td_content = "11";
-                String td_cate = "1";
-                String td_start = "234";
-                String td_finish  = "23";
-                String td_yn = "1";
+                String td_name = listTitle.getText().toString();
+                String td_content = listMemo.getText().toString();
+                String td_cate = ListType.getText().toString();
+                String td_start = listStartDate.getText().toString()+listStartTime.getText().toString();
+                String td_finish  = listEndDate.getText().toString()+listEndTime.getText().toString();
+                String td_yn = "false";
 
                 SaveData task = new SaveData();
                 task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_id, user_id, td_name, td_content, td_cate, td_start
