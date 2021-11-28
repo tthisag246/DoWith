@@ -49,8 +49,8 @@ public class placeAdapter extends BaseAdapter {
         TextView placeItemTitle = (TextView) view.findViewById(R.id.placeItemTitle);
         TextView placeItemType = (TextView) view.findViewById(R.id.placeItemType);
 
-        placeItemTitle.setText(ar.get(i).getItem_title());
-        placeItemType.setText(ar.get(i).getItem_type());
+        placeItemTitle.setText(ar.get(i).getItem_name());
+        placeItemType.setText(ar.get(i).getItem_cate());
 
         return view;
     }

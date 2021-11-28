@@ -1,26 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".placeLibraryLocked"
-    android:background="@drawable/library"
-    android:id="@+id/fullDisplay"
-    android:backgroundTint="#55000000"
-    android:backgroundTintMode="src_over">
+    android:background="@android:color/transparent"
+    android:id="@+id/fullDisplay">
 
-    <!--앱 잠금 버튼 생성-->
+    <ImageView
+        android:id="@+id/timerbackgrouond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/progress_circle_background" />
+
+    <ProgressBar
+        android:id="@+id/timerProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/progress_circle_inner"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/progress_circle_outer"
+        android:rotation="-90" />
+
+    <ImageView
+        android:id="@+id/lockImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:translationY="-20dp"
+        app:srcCompat="@drawable/lock" />
+
+    <TextView
+        android:id="@+id/leftTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:textSize="30dp"
+        android:fontFamily="@font/bmj"
+        android:layout_centerHorizontal="true"
+        android:translationY="460dp"
+        android:textColor="#F2F2F6"/>
+
+    <!--앱 잠금 해제 버튼 생성-->
     <Button
         android:id="@+id/btnLockedSwitch"
         android:layout_width="50dp"
         android:layout_height="100dp"
         android:backgroundTint="#FFFFFF"
-        android:text="버튼"
-        android:textColor="@color/black"
+        android:text="□"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#222222"
         android:translationX="335dp"
-        android:translationY="300dp" />
+        android:translationY="295dp" />
 
-
-</LinearLayout>
+</RelativeLayout>
