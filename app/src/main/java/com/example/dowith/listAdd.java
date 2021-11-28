@@ -34,7 +34,7 @@ import java.util.Locale;
 public class listAdd extends AppCompatActivity {
     int selected;
 
-    private static String IP_ADDRESS = "192.168.0.17";
+    private static String IP_ADDRESS = "hanmao2.iptime.org";
     private static String TAG = "list_insert";
     int count;
 
