@@ -27,9 +27,9 @@ public class study_join extends AppCompatActivity {
         //서치뷰 변수 joinSearchView 생성, XML의 joinSearchView에 대응시킴
         SearchView joinSearchView = (SearchView) findViewById(R.id.joinSearchView);
         //ArrayList<studyitem> 변수 studySearchList 생성
-        ArrayList<studyitem> studySearchList = new ArrayList<studyitem>();
+        ArrayList<studyjoinitem> studySearchList = new ArrayList<studyjoinitem>();
         //커스텀 리스트뷰 studyadapter 변수 생성, study_item으로 형식 지정, studySearchadapter 배열 적용
-        studyadapter studySearchadapter = new studyadapter(this, R.layout.study_item, studySearchList);
+        studyjoinadapter studySearchadapter = new studyjoinadapter(this, R.layout.study_item, studySearchList);
 
         //리스트뷰 변수 joinlistView 생성, XML의 joinList에 대응시킴
         ListView joinlistView = (ListView) findViewById(R.id.joinList);
@@ -37,25 +37,25 @@ public class study_join extends AppCompatActivity {
         ImageButton back2 = (ImageButton) findViewById(R.id.back2);
 
         //joinlist에 리스트 추가
-        ArrayList <studyitem> joinlist = new ArrayList<studyitem>();
-        joinlist.add(new studyitem("배구 모임"));
-        joinlist.add(new studyitem("영어 회화"));
-        joinlist.add(new studyitem("가가중 3-2 study"));
-        joinlist.add(new studyitem("드로잉 공부"));
-        joinlist.add(new studyitem("뜨개질 기초"));
-        joinlist.add(new studyitem("C언어 응용"));
-        joinlist.add(new studyitem("프랑스어 기초"));
-        joinlist.add(new studyitem("논술 심화"));
-        joinlist.add(new studyitem("공리 학원 2학년 모임"));
-        joinlist.add(new studyitem("제과제빵 따라하기"));
-        joinlist.add(new studyitem("Python 기초"));
-        joinlist.add(new studyitem("문문여고 1-2반"));
-        joinlist.add(new studyitem("수학 mentoring"));
-        joinlist.add(new studyitem("야구 동호회"));
-        joinlist.add(new studyitem("네일아트 꿀팁"));
-        joinlist.add(new studyitem("간단 코디"));
-        joinlist.add(new studyitem("전통 문학 배움터"));
-        joinlist.add(new studyitem("간편한 1인 요리"));
+        ArrayList <studyjoinitem> joinlist = new ArrayList<studyjoinitem>();
+        joinlist.add(new studyjoinitem("배구 모임"));
+        joinlist.add(new studyjoinitem("영어 회화"));
+        joinlist.add(new studyjoinitem("가가중 3-2 study"));
+        joinlist.add(new studyjoinitem("드로잉 공부"));
+        joinlist.add(new studyjoinitem("뜨개질 기초"));
+        joinlist.add(new studyjoinitem("C언어 응용"));
+        joinlist.add(new studyjoinitem("프랑스어 기초"));
+        joinlist.add(new studyjoinitem("논술 심화"));
+        joinlist.add(new studyjoinitem("공리 학원 2학년 모임"));
+        joinlist.add(new studyjoinitem("제과제빵 따라하기"));
+        joinlist.add(new studyjoinitem("Python 기초"));
+        joinlist.add(new studyjoinitem("문문여고 1-2반"));
+        joinlist.add(new studyjoinitem("수학 mentoring"));
+        joinlist.add(new studyjoinitem("야구 동호회"));
+        joinlist.add(new studyjoinitem("네일아트 꿀팁"));
+        joinlist.add(new studyjoinitem("간단 코디"));
+        joinlist.add(new studyjoinitem("전통 문학 배움터"));
+        joinlist.add(new studyjoinitem("간편한 1인 요리"));
 
         //joinSearchView 검색 시 작동하는 리스너 생성
         joinSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -79,9 +79,9 @@ public class study_join extends AppCompatActivity {
         });
 
         //ArrayAdapter<String> 형 변수 선언, 리스트뷰 형식 지정, joinlist 배열 적용
-        studyadapter studyadapter = new studyadapter(this, R.layout.study_item, joinlist);
+        studyjoinadapter studyjoinadapter = new studyjoinadapter(this, R.layout.study_item, joinlist);
         //adapter를 joinlistView에 적용
-        joinlistView.setAdapter(studyadapter);
+        joinlistView.setAdapter(studyjoinadapter);
 
         //joinlistView 클릭하면 실행하는 코드
         joinlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

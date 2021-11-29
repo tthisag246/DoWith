@@ -18,6 +18,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -26,6 +31,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class study extends Fragment {
 
@@ -36,43 +42,61 @@ public class study extends Fragment {
     private View view;
     View makeview;
 
+    public static String studyName;
+
+    String mJsonString;
+
+    ArrayList<studyitem> studylist;
+
+    studyadapter studylistadapter;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.study,container,false);
         //스터디 목록을 담을 ArrayList<String> 형의 비어 있는 변수 studylist 선언
-        ArrayList <studyitem> studylist = new ArrayList<studyitem>();
+        //ArrayList <studyitem> studylist = new ArrayList<studyitem>();
         //리스트뷰 변수 studylistView 생성, XML의 studylist에 대응시킴
+        studylist = new ArrayList<studyitem>();
         ListView studylistView = (ListView) view.findViewById(R.id.studylist);
         //버튼 변수 make 생성, XML의 make에 대응시킴
         ImageButton make = (ImageButton) view.findViewById(R.id.make);
         //버튼 변수 join 생성, XML의 join에 대응시킴
         ImageButton join = (ImageButton) view.findViewById(R.id.join);
 
-        //add() 메소드로 studylist 항목 추
-        studylist.add(new studyitem("수학 mentoring"));
-        studylist.add(new studyitem("드로잉 공부"));
-        studylist.add(new studyitem("영어 회화"));
-        studylist.add(new studyitem("논술 심화"));
-        studylist.add(new studyitem("가가중 3-2 study"));
-        studylist.add(new studyitem("뜨개질 기초"));
-        studylist.add(new studyitem("네일아트 꿀팁"));
-
         //ArrayAdapter<String> 형 변수 선언, 리스트뷰 형식 지정, studylist 배열 적용
-        studyadapter studyadapter = new studyadapter(getActivity(), R.layout.study_item , studylist);
+        studylistadapter = new studyadapter(getActivity(), R.layout.study_item, studylist);
         //adapter를 studylistView에 적용
-        studylistView.setAdapter(studyadapter);
+        studylistView.setAdapter(studylistadapter);
+
+//        //add() 메소드로 studylist 항목 추
+//        studylist.add(new studyitem("수학 mentoring"));
+//        studylist.add(new studyitem("드로잉 공부"));
+//        studylist.add(new studyitem("영어 회화"));
+//        studylist.add(new studyitem("논술 심화"));
+//        studylist.add(new studyitem("가가중 3-2 study"));
+//        studylist.add(new studyitem("뜨개질 기초"));
+//        studylist.add(new studyitem("네일아트 꿀팁"));
+
+        studylist.clear();
+        studylistadapter.notifyDataSetChanged();
+        study.GetData task = new study.GetData();
+        task.execute( "http://" + IP_ADDRESS + "/dowith/Study_getjson.php", "");
+
 
         //studylistView 클릭하면 실행하는 코드
         studylistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                studyName = studylist.get(arg2).getItem_title();
                 //Intent 생성, study_chat에 클래스 study_chat를 넘김
                 Intent intent = new Intent(getActivity(), study_chat.class);
                 //study_chat 액티비티 실행
                 startActivity(intent);
             }
         });
+
 
         //스터디 생성 버튼을 누르면 생성할 수 있는 대화상자가 나타나는 코드
         make.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +121,13 @@ public class study extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        String study_id = "11";
+                        //랜덤인수 넣어서 id 생성?
+                        int max_num_value = 999;
+                        int min_num_value = 100;
+                        Random random = new Random();
+                        int randomNum = random.nextInt(max_num_value - min_num_value + 1) + min_num_value;
+
+                        String study_id = "2021" + randomNum;
                         String study_name = studyName.getText().toString();
                         String study_desc = studyDesc.getText().toString();
 
@@ -222,4 +252,142 @@ public class study extends Fragment {
 
         }
     }
+
+    private class GetData extends AsyncTask<String, Void, String>{
+
+        ProgressDialog progressDialog;
+        String errorString = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(study.this.getActivity(),
+                    "데이터를 불러오는 중...", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            Toast.makeText(study.this.getActivity(), result, Toast.LENGTH_SHORT);
+            Log.d(TAG, "response - " + result);
+
+            if (result == null){
+
+                Toast.makeText(study.this.getActivity(), errorString, Toast.LENGTH_SHORT);
+            }
+            else {
+
+                mJsonString = result;
+                showResult();
+            }
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String serverURL = params[0];
+            String postParameters = "study_name=" + params[1];
+
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+
+
+            } catch (Exception e) {
+
+                Log.d(TAG, "InsertData: Error ", e);
+                errorString = e.toString();
+
+                return null;
+            }
+
+        }
+    }
+
+    private void showResult(){
+
+        String TAG_JSON="studies";
+        String TAG_ID = "study_id";
+        String TAG_NAME = "study_name";
+        String TAG_DESC ="study_desc";
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+            for(int i=0;i<jsonArray.length();i++){
+
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String study_id = item.getString(TAG_ID);
+                String study_name = item.getString(TAG_NAME);
+                String study_desc = item.getString(TAG_DESC);
+
+                studyitem studyitem = new studyitem();
+
+                studyitem.setItem_id(study_id);
+                studyitem.setItem_name(study_name);
+                studyitem.setItem_desc(study_desc);
+
+                studylist.add(studyitem);
+                studylistadapter.notifyDataSetChanged();
+            }
+
+
+
+        } catch (JSONException e) {
+
+            Log.d(TAG, "showResult : ", e);
+        }
+
+    }
+
 }
