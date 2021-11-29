@@ -43,7 +43,8 @@
         <activity android:name=".SubActivity"/>
         <activity android:name=".notificationSetting"/>
         <activity android:name="notification"/>
-        <activity android:name=".study_chat"/>
+        <activity android:name=".study_chat"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".friendList"/>
         <activity android:name=".register"/>
         <activity android:name=".friend1"/>

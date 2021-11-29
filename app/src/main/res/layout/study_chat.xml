@@ -10,6 +10,12 @@
 
     <!--스터디 채팅 화면-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
     <!--    스터디 이름 라인-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,9 +77,9 @@
     <ListView
         android:id="@+id/chatListView"
         android:layout_width="match_parent"
-        android:layout_height="610dp"
+        android:layout_height="match_parent"
         tools:listitem="@layout/study_chat_item" />
-
+    </LinearLayout>
     <!--    채팅 전송 라인-->
     <LinearLayout
         android:layout_width="wrap_content"
@@ -82,7 +88,7 @@
 
         <!--        채팅 입력 란-->
         <EditText
-            android:id="@+id/studyname"
+            android:id="@+id/chatContent"
             android:layout_width="355dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -93,7 +99,7 @@
 
         <!--        전송 버튼-->
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btnChatSend"
             android:layout_width="68dp"
             android:layout_height="match_parent"
             android:background="#F2F2F6"
