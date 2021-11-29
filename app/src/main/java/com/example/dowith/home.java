@@ -50,9 +50,9 @@ public class home extends Fragment
                         v.setX(v.getX() + dx); v.setY(v.getY() + dy);
                         break;
                         //터치 해제했을 때
-                        case MotionEvent.ACTION_CANCEL:
-                            case MotionEvent.ACTION_UP:
-                                break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        break;
                 } return true;
             }
         });
