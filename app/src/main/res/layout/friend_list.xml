@@ -41,7 +41,7 @@
         app:iconifiedByDefault="false"
         app:queryHint="|" />
 
-    <!--공간 목록 나열할 리스트뷰 생성-->
+    <!--친구 목록 나열할 리스트뷰 생성-->
     <ListView
         android:id="@+id/friendListView"
         android:layout_width="match_parent"
