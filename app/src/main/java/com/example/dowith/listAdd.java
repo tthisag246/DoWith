@@ -114,18 +114,19 @@ public class listAdd extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(listAdd.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String state = "AM";
-                        //선택한 시간이 12를 넘을 경우 PM으로 변경, -12시간하여 출력
-                        if (selectedHour > 12) {
-                            selectedHour -= 12;
-                            state = "PM";
-                        }
+//                        String state = "AM";
+//                        //선택한 시간이 12를 넘을 경우 PM으로 변경, -12시간하여 출력
+//                        if (selectedHour > 12) {
+//                            selectedHour -= 12;
+//                            state = "PM";
+//                        }
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh시 mm분", Locale.KOREA);
                         //listStartTime를 클릭해서 동작됐으면 listStartTime에 데이터 저장, 형식은 "AM 12시 00분"
                         if (v.getId() == R.id.listStartTime)
-                            listStartTime.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
+                            listStartTime.setText(sdf.format(mcurrentTime.getTime()));
                             //listEndTime를 클릭해서 동작됐으면 listEndTime에 데이터 저장, 형식은 "AM 12시 00분"
                         else if (v.getId() == R.id.listEndTime)
-                            listEndTime.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
+                            listEndTime.setText(sdf.format(mcurrentTime.getTime()));
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");
@@ -184,19 +185,31 @@ public class listAdd extends AppCompatActivity {
         btnListSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count++;
-                //카운트 증가 안함
-                String td_id = Integer.toString(count);
-                String user_id = "1";
+                //변수명 설정
+                String td_id = "1234";
                 String td_name = listTitle.getText().toString();
                 String td_content = listMemo.getText().toString();
                 String td_cate = ListType.getText().toString();
-                String td_start = listStartDate.getText().toString()+listStartTime.getText().toString();
-                String td_finish  = listEndDate.getText().toString()+listEndTime.getText().toString();
-                String td_yn = "false";
+                //시작 날짜, 시간 문자열 변경
+                String a = listStartDate.getText().toString();
+                String a1 = listStartTime.getText().toString();
+                a = a.replace("/", "");
+                a1 = a1.replace("시 ", "");
+                a1 = a1.replace("분", "00");
+
+                //종료 날짜, 시간 문자열 변경
+                String b = listEndDate.getText().toString();
+                String b1 = listEndTime.getText().toString();
+                b = b.replace("/", "");
+                b1 = b1.replace("시 ", "");
+                b1 = b1.replace("분", "00");
+
+                String td_start = a + a1;
+                String td_finish = b + b1;
+                String td_yn = "1";
 
                 SaveData task = new SaveData();
-                task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_id, user_id, td_name, td_content, td_cate, td_start
+                task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_id, td_name, td_content, td_cate, td_start
                 ,td_finish, td_yn);
 
                 finish();
@@ -231,40 +244,38 @@ public class listAdd extends AppCompatActivity {
         protected String doInBackground(String... params) {
             //파라미터를 배열로 전달받는 백그라운드 작업
             String td_id = (String) params[1];
-            String user_id = (String) params[2];
-            String td_name = (String) params[3];
-            String td_content = (String) params[4];
-            String td_cate = (String) params[5];
-            String td_start = (String) params[6];
-            String td_finish = (String) params[7];
-            String td_yn = (String) params[8];
+            String td_name = (String) params[2];
+            String td_content = (String) params[3];
+            String td_cate = (String) params[4];
+            String td_start = (String) params[5];
+            String td_finish = (String) params[6];
+            String td_yn = (String) params[7];
 
             String serverURL = (String) params[0];
-            String postParameters = "td_id=" + td_id + "&user_id=" + user_id + "&td_name=" + td_name
+            String postParameters = "td_id=" + td_id + "&td_name=" + td_name
                     + "&td_content=" + td_content+ "&td_cate=" + td_cate+ "&td_start=" + td_start+ "&td_finish=" + td_finish
                     + "&td_yn=" + td_yn;
 
 
-            //오류나면 출력
 
             try {
-
+                //URL 서버와 연결
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-//                httpURL 연결 시간 지정
+                //httpURL 연결 시간 지정
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.connect();
 
-
+                //바이트 단위 데이터 출력을 위한 최상위 스트림 클래스
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
 
-
+                //http 상태 코드
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "POST response code - " + responseStatusCode);
 
@@ -275,7 +286,7 @@ public class listAdd extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-
+                //문자 단위 입출력을 위한 하위 스트림 클래스
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -286,9 +297,7 @@ public class listAdd extends AppCompatActivity {
                     sb.append(line);
                 }
 
-
                 bufferedReader.close();
-
 
                 return sb.toString();
 
