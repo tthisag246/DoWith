@@ -185,6 +185,7 @@ public class listAdd extends AppCompatActivity {
         btnListSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //변수명 설정
                 String td_id = "1234";
                 String td_name = listTitle.getText().toString();
                 String td_content = listMemo.getText().toString();
@@ -256,26 +257,25 @@ public class listAdd extends AppCompatActivity {
                     + "&td_yn=" + td_yn;
 
 
-            //오류나면 출력
 
             try {
-
+                //URL 서버와 연결
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-//                httpURL 연결 시간 지정
+                //httpURL 연결 시간 지정
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.connect();
 
-
+                //바이트 단위 데이터 출력을 위한 최상위 스트림 클래스
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
 
-
+                //http 상태 코드
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "POST response code - " + responseStatusCode);
 
@@ -286,7 +286,7 @@ public class listAdd extends AppCompatActivity {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-
+                //문자 단위 입출력을 위한 하위 스트림 클래스
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -297,9 +297,7 @@ public class listAdd extends AppCompatActivity {
                     sb.append(line);
                 }
 
-
                 bufferedReader.close();
-
 
                 return sb.toString();
 

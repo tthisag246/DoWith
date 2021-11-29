@@ -17,7 +17,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class home extends Fragment // Fragment 클래스를 상속받아야한다
+// 내비게이션 바 이동을 위해 Fragment 클래스를 상속받음
+public class home extends Fragment
 {
 
     private View view;

@@ -75,15 +75,18 @@ public class list extends Fragment {
         btnSortList = (ImageButton) view.findViewById(R.id.btnSortList);
         //버튼 변수 btnAddList 생성, XML의 btnAddList에 대응시킴
         btnAddList = (ImageButton) view.findViewById(R.id.btnAddList);
-
+        //스크롤뷰 적용
         listScrollView = (ScrollView) view.findViewById(R.id.listScrollView);
-
+        //listAdapter를 listView에 적용
         listView.setAdapter(listAdapter);
 
+        //리스트를 비움
         tdList.clear();
         listAdapter.notifyDataSetChanged();
 
+        //데이터 가져오는 생성자 호출
         GetData task = new GetData();
+        //http 링크를 실행
         task.execute( "http://" + IP_ADDRESS + "/dowith/list_getjson.php", "");
 
 //        //add() 메소드로 tdList에 항목 추가
@@ -97,7 +100,6 @@ public class list extends Fragment {
 //        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
 //        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
 
-        //listAdapter를 listView에 적용
 
         btnFilterList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +145,7 @@ public class list extends Fragment {
     }
 
 
-    //컨텍스트 메뉴를 등록한다.
+    //컨텍스트 메뉴를 등록함
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -202,11 +204,13 @@ public class list extends Fragment {
         return true;
     }
 
+    //데이터 받는 함수
     private class GetData extends AsyncTask<String, Void, String>{
 
         ProgressDialog progressDialog;
         String errorString = null;
 
+        //AsyncTask의 작업을 시작하기 전에 가장 먼저 한 번 호출됨
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -215,7 +219,8 @@ public class list extends Fragment {
                     "데이터를 불러오는 중...", null, true, true);
         }
 
-
+        //AsyncTask의 모든 작업이 완료된 후 가장 마지막에 한 번 호출
+        //doInBackground() 함 수의 최종 값을 받기 위해 사용
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -224,18 +229,20 @@ public class list extends Fragment {
             Toast.makeText(list.this.getActivity(), result, Toast.LENGTH_SHORT);
             Log.d(TAG, "response - " + result);
 
+            //만약 결괏값이 비었다면
             if (result == null){
-
+                //토스트 메시지 출력
                 Toast.makeText(list.this.getActivity(), errorString, Toast.LENGTH_SHORT);
             }
             else {
 
                 mJsonString = result;
-                showResult();
+                showResult(); //showResult 함수 호출
             }
         }
 
 
+        //스레드에 의해 처리될 내용을 담기 위한 함수
         @Override
         protected String doInBackground(String... params) {
 
@@ -248,20 +255,20 @@ public class list extends Fragment {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-
+                //httpURL 연결 시간 지정
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
-
+                //바이트 단위 데이터 출력을 위한 최상위 스트림 클래스
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
 
-
+                //http 상태 코드
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d(TAG, "response code - " + responseStatusCode);
 
@@ -273,7 +280,7 @@ public class list extends Fragment {
                     inputStream = httpURLConnection.getErrorStream();
                 }
 
-
+                //문자 단위 입출력을 위한 하위 스트림 클래스
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -300,10 +307,11 @@ public class list extends Fragment {
         }
     }
 
+    //결괏값 출력
     private void showResult(){
-
+        //테이블명과 컬럼명을 태그변수로 지정
         String TAG_JSON="todo_lists"; //테이블명
-        String TAG_ID = "td_id";
+        String TAG_ID = "td_id"; //이하 컬럼
         String TAG_NAME ="td_name";
         String TAG_CONTENT ="td_content";
         String TAG_CATE ="td_cate";
@@ -313,13 +321,17 @@ public class list extends Fragment {
 
 
         try {
+            // 중괄호에 들어갈 속성 정의
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
+            //jsonArray 길이만큼 반복
             for(int i=0;i<jsonArray.length();i++){
+
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
+                //listItem의 태그 가져옴
                 String td_id = item.getString(TAG_ID);
                 String td_name = item.getString(TAG_NAME);
                 String td_content = item.getString(TAG_CONTENT);
@@ -328,7 +340,7 @@ public class list extends Fragment {
                 String td_finish = item.getString(TAG_FINISH);
                 String td_yn = item.getString(TAG_YN);
 
-
+                //listItem의 아이템 호출
                 listItem listItem = new listItem();
 
                 listItem.setItem_ID(td_id);
@@ -336,15 +348,13 @@ public class list extends Fragment {
                 listItem.setItem_memo(td_content);
                 listItem.setItem_type(td_cate);
                 listItem.setItem_time("시작: " + td_start + " 종료:" + td_finish);
-                listItem.setItem_done(td_yn == "1"? true:false);
-
+                listItem.setItem_done(td_yn == "1"? true:false); //td_yn의 값이 1이면 true, 그외는 false 출력
 
                 tdList.add(listItem);
-                listAdapter.notifyDataSetChanged();
+                listAdapter.notifyDataSetChanged(); //새로고침 갱신
             }
 
-
-
+        //오류 발생하면 showResult 태그 붙여 수정
         } catch (JSONException e) {
 
             Log.d(TAG, "showResult : ", e);
