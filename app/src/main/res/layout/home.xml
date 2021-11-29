@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home">
 
-        <!--    캐릭터 이미지 -->
+    <!-- 캐릭터 이미지 -->
     <ImageView
         android:id="@+id/sd"
         android:layout_width="114dp"

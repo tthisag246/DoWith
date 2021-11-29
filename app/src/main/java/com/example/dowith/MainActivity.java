@@ -64,14 +64,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
+                    //홈 화면 보여줌
                     case R.id.item_fragment1: getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new home()).commit();
                     break;
+                    //리스트 화면 보여줌
                     case R.id.item_fragment2: getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new list()).commit();
                     break;
+                    //공간 화면 보여줌
                     case R.id.item_fragment3: getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new place()).commit();
                     break;
+                    //스터디 화면 보여줌
                     case R.id.item_fragment4: getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new study()).commit();
                     break;
+                    //마이페이지 화면 보여줌
                     case R.id.item_fragment5: getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new my()).commit();
                     break;
             }
