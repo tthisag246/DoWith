@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <!--하단네비게이션을 생성하기 위한 메인 프레임-->
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,15 +26,14 @@
             app:srcCompat="@drawable/ic_baseline_notifications_24"
             app:tint="#8F6CB1"
             android:elevation="1dp"/>
-      
+
         <!--하단비게이션-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@id/adView"
             android:layout_centerHorizontal="true"
-            android:translationY="681dp"
             android:background="#F2F2F6"
             app:itemIconSize="30dp"
             app:itemIconTint="@drawable/menu_selector_color"
@@ -48,7 +47,6 @@
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:adSize="BANNER"
@@ -56,5 +54,5 @@
             tools:ignore="MissingConstraints"
             android:elevation="1dp"/>
 
-    </FrameLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>
