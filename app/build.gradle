@@ -47,7 +47,10 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //네이버 지도 API - Mobile Dynamic Map
     implementation 'com.naver.maps:map-sdk:3.13.0'
+    //네이버 지도 API - Geocoding
+
+    //구글 Admob
     implementation 'com.google.android.gms:play-services-ads:20.4.0'
-    //구글 광고
 }
