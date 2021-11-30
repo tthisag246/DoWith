@@ -35,7 +35,8 @@
         <activity android:name=".account"/>
         <activity android:name=".editCharacter"/>
         <activity android:name=".editRoom"/>
-        <activity android:name=".listAdd" />
+        <activity android:name=".listAdd"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".placeLibrary"/>
         <activity android:name=".placeAdd"/>
         <activity android:name=".study_join"/>

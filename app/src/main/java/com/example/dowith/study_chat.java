@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,6 +49,29 @@ public class study_chat extends AppCompatActivity {
     studyChatAdapter chatListAdapter;
 
     Handler chatHandler;
+
+    test t = new test();
+    Thread th = new Thread(t);
+
+    Boolean exittf = true;
+
+
+
+    class test implements Runnable {
+
+        @Override
+        public void run() {
+            while (exittf == true) {
+                try {
+                    Thread.sleep(3000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                chatHandler.sendEmptyMessage(0);
+            }
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -75,6 +100,20 @@ public class study_chat extends AppCompatActivity {
         GetData task = new GetData();
         task.execute( "http://" + IP_ADDRESS + "/dowith/chat_getjson.php", "");
 
+
+        chatHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                GetData task = new GetData();
+                task.execute( "http://" + IP_ADDRESS + "/dowith/chat_getjson.php", "");
+                chatList.clear();
+                chatListAdapter.notifyDataSetChanged();
+            }
+        };
+
+        t = new test();
+        th = new Thread(t);
+        th.start();
         //버튼 변수 back1 생성, XML의 back1에 대응시킴
         ImageButton back1 = (ImageButton) findViewById(R.id.back1);
 
@@ -82,7 +121,13 @@ public class study_chat extends AppCompatActivity {
         back1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                exittf = false;
+                th.interrupt();
+                while ( !th.isInterrupted() ) {
+                    SystemClock.sleep(500);
+                }
+                study_chat.this.finish();
+
             }
         });
 
@@ -104,40 +149,6 @@ public class study_chat extends AppCompatActivity {
                 chatContent.setText("");
             }
         });
-
-        chatHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                chatList.clear();
-                chatListAdapter.notifyDataSetChanged();
-                GetData task = new GetData();
-                task.execute( "http://" + IP_ADDRESS + "/dowith/chat_getjson.php", "");
-
-            }
-        };
-
-        class test implements Runnable {
-
-            @Override
-            public void run() {
-                while (true) {
-
-                    try {
-                        Thread.sleep(3000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    chatHandler.sendEmptyMessage(0);
-                }
-            }
-        }
-
-        test t = new test();
-        Thread th = new Thread(t);
-        th.start();
-
-
 
     }
 
@@ -240,7 +251,8 @@ public class study_chat extends AppCompatActivity {
             super.onPreExecute();
 
             progressDialog = ProgressDialog.show(study_chat.this,
-                    "로딩 중...", null, true, true);
+                    null, null, true, true);
+            progressDialog.hide();
         }
 
 
@@ -352,7 +364,7 @@ public class study_chat extends AppCompatActivity {
 
                 studyChatItem.setItem_id(s_chat_id);
                 studyChatItem.setItem_content(s_chat_content);
-                studyChatItem.setItem_time(s_chat_time);
+                studyChatItem.setItem_time(s_chat_time.substring(0,5));
 
                 chatList.add(studyChatItem);
                 chatListAdapter.notifyDataSetChanged();
