@@ -6,13 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background1"
     tools:context=".MainActivity">
-    <!--애드몹 배경-->
-    <TextView
-        android:id="@+id/admob_background"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#F2F2F6"
-        android:layout_gravity="bottom"/>
+
     <!--하단네비게이션을 생성하기 위한 메인 프레임-->
     <RelativeLayout
         android:id="@+id/main_frame"
@@ -38,7 +32,7 @@
             android:id="@+id/bottomNavi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/adView"
+            android:layout_above="@id/admob_background"
             android:layout_centerHorizontal="true"
             android:background="#F2F2F6"
             app:itemIconSize="30dp"
@@ -47,6 +41,14 @@
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/menu" />
+
+        <!--애드몹 배경-->
+        <TextView
+            android:id="@+id/admob_background"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F2F2F6"
+            android:layout_alignParentBottom="true"/>
 
         <!--구글 애드몹 광고-->
         <com.google.android.gms.ads.AdView
