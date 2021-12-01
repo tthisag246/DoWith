@@ -42,7 +42,7 @@ public class study extends Fragment {
     private View view;
     View makeview;
 
-    public static String studyName;
+    public static String stName;
 
     String mJsonString;
 
@@ -89,7 +89,7 @@ public class study extends Fragment {
         //studylistView 클릭하면 실행하는 코드
         studylistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                studyName = studylist.get(arg2).getItem_title();
+                stName = studylist.get(arg2).getItem_title();
                 //Intent 생성, study_chat에 클래스 study_chat를 넘김
                 Intent intent = new Intent(getActivity(), study_chat.class);
                 //study_chat 액티비티 실행
@@ -128,6 +128,7 @@ public class study extends Fragment {
                         //php파일 ip주소 연결
                         task.execute("http://" + IP_ADDRESS + "/dowith/study_insert.php", study_name, study_desc);
 
+                        stName = study_name;
                         //Intent 생성, study_chat로 화면 전환
                         Intent intent = new Intent(getActivity(), study_chat.class);
                         //study_chat 액티비티 실행

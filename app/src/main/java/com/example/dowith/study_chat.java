@@ -82,7 +82,7 @@ public class study_chat extends AppCompatActivity {
 
 
         stname = (TextView) findViewById(R.id.stName);
-        stname.setText(study.studyName);
+        stname.setText(study.stName);
 
         //ArrayList<placeItem> 변수 placeSearchList 생성
         chatList = new ArrayList<studyChatItem>();
