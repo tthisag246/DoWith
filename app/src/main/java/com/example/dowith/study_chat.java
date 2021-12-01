@@ -39,7 +39,7 @@ public class study_chat extends AppCompatActivity {
 
     TextView stname;
 
-    private static String IP_ADDRESS = "hanmao2.iptime.org";
+    private static String IP_ADDRESS = "dowith0server.dothome.co.kr";
     private static String TAG = "studyChatDB";
 
     String mJsonString;
