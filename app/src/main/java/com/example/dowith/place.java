@@ -216,7 +216,7 @@ public class place extends Fragment {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            Toast.makeText(place.this.getActivity(), result, Toast.LENGTH_SHORT);
+            //Toast.makeText(place.this.getActivity(), result, Toast.LENGTH_SHORT);
             Log.d(TAG, "POST response  - " + result);
         }
 

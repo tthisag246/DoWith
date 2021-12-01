@@ -32,19 +32,14 @@ import java.util.Locale;
 
 public class register extends AppCompatActivity {
     ImageButton back;
-    View.OnClickListener cl;
-    int selected;
     Calendar myCalendar = Calendar.getInstance();
     private static String IP_ADDRESS = "dowith0server.dothome.co.kr";
     private static String TAG = "user_insert";
 
-    private EditText mEditTextuserid;
     private EditText mEditTextuseremail;
     private EditText mEditTextname;
     private EditText mEditTexpw;
     private EditText mEditTextbirthdate;
-    private TextView mEditTextjoindate;
-    private TextView mTextViewResult;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,14 +47,10 @@ public class register extends AppCompatActivity {
         setContentView(R.layout.register);
         //알림 설정 레이아웃을 표시해준다
         back = (ImageButton) findViewById(R.id.back_reg);
-        mEditTextuserid = (EditText)findViewById(R.id.editText_usrid);
         mEditTextuseremail = (EditText)findViewById(R.id.editText_usrmail);
         mEditTextname = (EditText)findViewById(R.id.editText_usrname);
         mEditTexpw = (EditText)findViewById(R.id.editText_usrpw);
         mEditTextbirthdate = (EditText)findViewById(R.id.editText_usrbirth);
-        mEditTextjoindate = (TextView) findViewById(R.id.editText_usrjoind);
-        mTextViewResult = (TextView) findViewById(R.id.textView_main_result);
-        mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
 
         //데이트 피커쪽
         View.OnClickListener datecl = new View.OnClickListener() {
@@ -75,8 +66,7 @@ public class register extends AppCompatActivity {
                         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.KOREA);
                         //mEditTextbirthdate를 클릭해서 동작됐으면 listStartDate에 데이터 저장
-                        if (v.getId() == R.id.editText_usrbirth)
-                            mEditTextbirthdate.setText(sdf.format(myCalendar.getTime()));
+                        mEditTextbirthdate.setText(sdf.format(myCalendar.getTime()));
                     }
                 }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -90,24 +80,16 @@ public class register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String user_id = mEditTextuserid.getText().toString();
                 String user_email = mEditTextuseremail.getText().toString();
                 String user_name = mEditTextname.getText().toString();
                 String user_pw = mEditTexpw.getText().toString();
-                String user_birth_date = mEditTextbirthdate.getText().toString();
-                String user_join_date = mEditTextjoindate.getText().toString();
+                String user_birth_date = mEditTextbirthdate.getText().toString().replace("/", "-");
 
                 InsertData task = new InsertData();
-                task.execute("http://" + IP_ADDRESS + "/dowith/user_insert.php", user_id, user_email, user_name, user_pw,user_birth_date, user_join_date);
+                task.execute("http://" + IP_ADDRESS + "/dowith/user_insert.php", user_email, user_name, user_pw, user_birth_date);
 
-                mEditTextuserid.setText("");
-                mEditTextuseremail.setText("");
-                mEditTextname.setText("");
-                mEditTexpw.setText("");
-                mEditTextbirthdate.setText("");
-                mEditTextjoindate.setText("");
-                Toast.makeText(getApplicationContext(),"가입 완료되었습니다",Toast.LENGTH_SHORT).show();
                 finish();
+                Toast.makeText( register.this, "가입 완료되었습니다",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -130,10 +112,7 @@ public class register extends AppCompatActivity {
                     }
                 });
                 //취소 버튼 클릭시 동작
-                dlg.setNegativeButton("취소",new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
+                dlg.setNegativeButton("취소", null);
                 dlg.show(); //대화상자 보여줌
             }
         });
@@ -158,7 +137,6 @@ public class register extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            mTextViewResult.setText(result);
             Log.d(TAG, "POST response  - " + result);
         }
 
@@ -166,15 +144,13 @@ public class register extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            String user_id = (String) params[1];
-            String user_email = (String)params[2];
-            String user_name = (String)params[3];
-            String user_pw = (String)params[4];
-            String user_birth_date = (String)params[5];
-            String user_join_date = (String)params[6];
+            String user_email = (String)params[1];
+            String user_name = (String)params[2];
+            String user_pw = (String)params[3];
+            String user_birth_date = (String)params[4];
 
             String serverURL = (String)params[0];
-            String postParameters = "user_id=" + user_id + "&user_email=" + user_email + "&user_name=" + user_name + "&user_pw=" + user_pw + "&user_birth_date=" + user_birth_date + "&user_join_date=" + user_join_date;
+            String postParameters = "user_email=" + user_email + "&user_name=" + user_name + "&user_pw=" + user_pw + "&user_birth_date=" + user_birth_date;
 
 
             try {
