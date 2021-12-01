@@ -139,12 +139,11 @@ public class study_chat extends AppCompatActivity {
         btnChatSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s_chat_id = "11";
                 String s_chat_content = chatContent.getText().toString();
                 String s_chat_time = LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
 
                 study_chat.InsertData task = new study_chat.InsertData();
-                task.execute("http://" + IP_ADDRESS + "/dowith/chat_insert.php", s_chat_id, s_chat_content, s_chat_time);
+                task.execute("http://" + IP_ADDRESS + "/dowith/chat_insert.php", s_chat_content, s_chat_time);
 
                 chatContent.setText("");
             }
@@ -178,12 +177,11 @@ public class study_chat extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            String s_chat_id = (String) params[1];
-            String s_chat_content = (String) params[2];
-            String s_chat_time = (String) params[3];
+            String s_chat_content = (String) params[1];
+            String s_chat_time = (String) params[2];
 
             String serverURL = (String)params[0];
-            String postParameters = "s_chat_id=" + s_chat_id + "&s_chat_content=" + s_chat_content + "&s_chat_time=" + s_chat_time;
+            String postParameters = "s_chat_content=" + s_chat_content + "&s_chat_time=" + s_chat_time;
 
 
             try {
@@ -280,7 +278,7 @@ public class study_chat extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             String serverURL = params[0];
-            String postParameters = "s_chat_id=" + params[1];
+            String postParameters = "s_chat_content=" + params[1];
 
 
             try {

@@ -122,16 +122,19 @@ public class listAdd extends AppCompatActivity {
 //                            selectedHour -= 12;
 //                            state = "PM";
 //                        }
-                        SimpleDateFormat sdf = new SimpleDateFormat("hh시 mm분", Locale.KOREA);
-                        //listStartTime를 클릭해서 동작됐으면 listStartTime에 데이터 저장, 형식은 "AM 12시 00분"
+
+                        String SHour = (selectedHour < 10 ? "0" : "") + String.valueOf(selectedHour);
+                        String SMinute = (selectedMinute < 10 ? "0" : "") + String.valueOf(selectedMinute);
+
+                        //listStartTime를 클릭해서 동작됐으면 listStartTime에 데이터 저장, 형식은 "12시 00분"
                         if (v.getId() == R.id.listStartTime)
-                            listStartTime.setText(sdf.format(mcurrentTime.getTime()));
-                            //listEndTime를 클릭해서 동작됐으면 listEndTime에 데이터 저장, 형식은 "AM 12시 00분"
+                            listStartTime.setText(SHour + "시 " + SMinute + "분");
+                            //listEndTime를 클릭해서 동작됐으면 listEndTime에 데이터 저장, 형식은 "12시 00분"
                         else if (v.getId() == R.id.listEndTime)
-                            listEndTime.setText(sdf.format(mcurrentTime.getTime()));
+                            listEndTime.setText(SHour + "시 " + SMinute + "분");
                     }
                 }, hour, minute, false);
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle("시간 선택");
                 mTimePicker.show();
             }
         };
@@ -187,30 +190,30 @@ public class listAdd extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //변수명 설정
-                String td_id = "1234";
+                //String td_id = "1234";
                 String td_name = listTitle.getText().toString();
                 String td_content = listMemo.getText().toString();
                 String td_cate = String.valueOf(selected);
                 //시작 날짜, 시간 문자열 변경
                 String a = listStartDate.getText().toString();
                 String a1 = listStartTime.getText().toString();
-                a = a.replace("/", "");
-                a1 = a1.replace("시 ", "");
-                a1 = a1.replace("분", "00");
+                a = a.replace("/", "-");
+                a1 = a1.replace("시 ", ":");
+                a1 = a1.replace("분", ":00");
 
                 //종료 날짜, 시간 문자열 변경
                 String b = listEndDate.getText().toString();
                 String b1 = listEndTime.getText().toString();
-                b = b.replace("/", "");
-                b1 = b1.replace("시 ", "");
-                b1 = b1.replace("분", "00");
+                b = b.replace("/", "-");
+                b1 = b1.replace("시 ", ":");
+                b1 = b1.replace("분", ":00");
 
-                String td_start = a + a1;
-                String td_finish = b + b1;
-                String td_yn = "0";
+                String td_start = a + " " + a1;
+                String td_finish = b + " " + b1;
+                String td_yn = "1";
 
                 SaveData task = new SaveData();
-                task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_id, td_name, td_content, td_cate, td_start
+                task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_name, td_content, td_cate, td_start
                 ,td_finish, td_yn);
 
                 finish();
@@ -244,18 +247,17 @@ public class listAdd extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             //파라미터를 배열로 전달받는 백그라운드 작업
-            String td_id = (String) params[1];
-            String td_name = (String) params[2];
-            String td_content = (String) params[3];
-            String td_cate = (String) params[4];
-            String td_start = (String) params[5];
-            String td_finish = (String) params[6];
-            String td_yn = (String) params[7];
+            //String td_id = (String) params[1];
+            String td_name = (String) params[1];
+            String td_content = (String) params[2];
+            String td_cate = (String) params[3];
+            String td_start = (String) params[4];
+            String td_finish = (String) params[5];
+            String td_yn = (String) params[6];
 
             String serverURL = (String) params[0];
-            String postParameters = "td_id=" + td_id + "&td_name=" + td_name
-                    + "&td_content=" + td_content+ "&td_cate=" + td_cate+ "&td_start=" + td_start+ "&td_finish=" + td_finish
-                    + "&td_yn=" + td_yn;
+            String postParameters ="td_name=" + td_name + "&td_content=" + td_content+ "&td_cate=" +
+                    td_cate+ "&td_start=" + td_start+ "&td_finish=" + td_finish + "&td_yn=" + td_yn;
 
 
 

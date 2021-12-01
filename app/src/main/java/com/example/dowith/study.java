@@ -121,19 +121,12 @@ public class study extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        //랜덤인수 넣어서 id 생성?
-                        int max_num_value = 999;
-                        int min_num_value = 100;
-                        Random random = new Random();
-                        int randomNum = random.nextInt(max_num_value - min_num_value + 1) + min_num_value;
-
-                        String study_id = "2021" + randomNum;
                         String study_name = studyName.getText().toString();
                         String study_desc = studyDesc.getText().toString();
 
                         InsertData task = new InsertData();
                         //php파일 ip주소 연결
-                        task.execute("http://" + IP_ADDRESS + "/dowith/study_insert.php", study_id,study_name,study_desc);
+                        task.execute("http://" + IP_ADDRESS + "/dowith/study_insert.php", study_name, study_desc);
 
                         //Intent 생성, study_chat로 화면 전환
                         Intent intent = new Intent(getActivity(), study_chat.class);
@@ -188,12 +181,11 @@ public class study extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            String study_id = (String) params[1];
-            String study_name = (String)params[2];
-            String study_desc = (String)params[3];
+            String study_name = (String)params[1];
+            String study_desc = (String)params[2];
 
             String serverURL = (String)params[0];
-            String postParameters = "study_id=" + study_id + "&study_name=" + study_name + "&study_desc=" + study_desc;
+            String postParameters = "study_name=" + study_name + "&study_desc=" + study_desc;
 
 
             try {

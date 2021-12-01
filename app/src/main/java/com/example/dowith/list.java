@@ -352,7 +352,7 @@ public class list extends Fragment {
                         break;
                 }
                 listItem.setItem_time(td_start.substring(0,5) + " ~ " + td_finish.substring(0,5));
-                listItem.setItem_done(td_yn == "1"? true:false); //td_yn의 값이 1이면 true, 그외는 false 출력
+                listItem.setItem_done(td_yn == "2"? true:false); //td_yn의 값이 2이면 true, 그외는 false 출력
 
                 tdList.add(listItem);
                 listAdapter.notifyDataSetChanged(); //새로고침 갱신

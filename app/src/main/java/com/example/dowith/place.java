@@ -171,7 +171,6 @@ public class place extends Fragment {
 
                 place_name_edit = (EditText) placeAddView.findViewById(R.id.placeTitle);
                 place_desc_edit = (EditText) placeAddView.findViewById(R.id.placeMemo);
-                String place_id = "10";
 
                 dlg.setPositiveButton("생성", new DialogInterface.OnClickListener() {
 
@@ -184,7 +183,7 @@ public class place extends Fragment {
                         String p_cate_id = (selectPlaceCate.getText().toString().equals("도서관") ? "1" : "2" );
 
                         InsertData task = new InsertData();
-                        task.execute("http://" + IP_ADDRESS + "/dowith/place_insert.php", place_id,place_name,place_desc,p_cate_id);
+                        task.execute("http://" + IP_ADDRESS + "/dowith/place_insert.php", place_name, place_desc, p_cate_id);
 
                         placeName = place_name;
                         Intent intent = new Intent(getActivity(), placeLibrary.class);
@@ -225,13 +224,12 @@ public class place extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            String place_id = (String) params[1];
-            String place_name = (String) params[2];
-            String place_desc = (String) params[3];
-            String p_cate_id = (String) params[4];
+            String place_name = (String) params[1];
+            String place_desc = (String) params[2];
+            String p_cate_id = (String) params[3];
 
             String serverURL = (String)params[0];
-            String postParameters = "place_id=" + place_id + "&place_name=" + place_name + "&place_desc=" + place_desc + "&p_cate_id=" + p_cate_id;
+            String postParameters = "place_name=" + place_name + "&place_desc=" + place_desc + "&p_cate_id=" + p_cate_id;
 
 
             try {
