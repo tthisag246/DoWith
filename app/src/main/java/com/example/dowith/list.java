@@ -24,6 +24,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -92,21 +93,64 @@ public class list extends Fragment {
         btnFilterList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dlg = new AlertDialog.Builder(list.this.getActivity());
-                dlg.setTitle("일정 종류");
-                dlg.setItems(new String[]{"공부", "운동", "아침루틴", "저녁루틴", "취미"}, new DialogInterface.OnClickListener() {
+                PopupMenu popup = new PopupMenu(getActivity(), view);
+
+                getActivity().getMenuInflater().inflate(R.menu.list_filter_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //필터
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        return false;
                     }
                 });
-                dlg.setPositiveButton("취소", null);
-                dlg.show();
+                popup.show();
             }
         });
 
-        //btnSortList를 길게 클릭하면 컨텍스트 메뉴 띄움
-        registerForContextMenu(btnSortList);
+        btnSortList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(getActivity(), view);
+
+                getActivity().getMenuInflater().inflate(R.menu.list_sort_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.listSortTitle:
+                                //제목으로 정렬
+                                Comparator<listItem> cmpTitle = new Comparator<listItem>() {
+                                    @Override
+                                    public int compare(listItem t1, listItem t2) {
+                                        return t1.listTitle.compareTo(t2.listTitle);
+                                    }
+                                };
+
+                                Collections.sort(tdList, cmpTitle);
+
+                                listAdapter.notifyDataSetChanged();
+                                break;
+                            case R.id.listSortTime:
+                                //시간으로 정렬
+                                Comparator<listItem> cmpTime = new Comparator<listItem>() {
+                                    @Override
+                                    public int compare(listItem t1, listItem t2) {
+                                        return t1.listTime.compareTo(t2.listTime);
+                                    }
+                                };
+
+                                Collections.sort(tdList, cmpTime);
+
+                                listAdapter.notifyDataSetChanged();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+            }
+        });
 
         //listView를 클릭하면 실행하는 코드 (체크 표시)
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,8 +161,35 @@ public class list extends Fragment {
             }
         });
 
-        //listView를 길게 클릭하면 컨텍스트 메뉴 띄움
-        registerForContextMenu(listView);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                PopupMenu popup = new PopupMenu(getActivity(), view);
+
+                getActivity().getMenuInflater().inflate(R.menu.list_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.listItemEdit:
+                                //Intent 생성, list_edit의 클래스 listEdit를 넘김
+                                Intent intent = new Intent(getActivity(), listEdit.class);
+                                //list_edit 액티비티 실행
+                                startActivity(intent);
+                                break;
+                            case R.id.listItemDelete:
+                                tdList.remove(i);
+                                listAdapter.notifyDataSetChanged();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+                return false;
+            }
+        });
 
         //btnAddList 버튼을 클릭하면 실행하는 코드
         btnAddList.setOnClickListener(new View.OnClickListener() {
@@ -130,66 +201,6 @@ public class list extends Fragment {
             }
         });
         return view;
-    }
-
-
-    //컨텍스트 메뉴를 등록함
-    @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater mInflater = getActivity().getMenuInflater();
-        if(v == btnSortList) {
-            mInflater.inflate(R.menu.list_sort_menu, menu);
-        }
-        else if(v == listView) {
-            mInflater.inflate(R.menu.list_menu, menu);
-        }
-    }
-
-    //메뉴를 클릭했을 때 동작할 메소드
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.listSortTitle:
-                //제목으로 정렬
-                Comparator<listItem> cmpTitle = new Comparator<listItem>() {
-                    @Override
-                    public int compare(listItem t1, listItem t2) {
-                        return t1.listTitle.compareTo(t2.listTitle);
-                    }
-                };
-
-                Collections.sort(tdList, cmpTitle);
-
-                listAdapter.notifyDataSetChanged();
-                break;
-            case R.id.listSortTime:
-                //시간으로 정렬
-                Comparator<listItem> cmpTime = new Comparator<listItem>() {
-                    @Override
-                    public int compare(listItem t1, listItem t2) {
-                        return t1.listTime.compareTo(t2.listTime);
-                    }
-                };
-
-                Collections.sort(tdList, cmpTime);
-
-                listAdapter.notifyDataSetChanged();
-                break;
-            case R.id.listItemEdit:
-                //Intent 생성, list_edit의 클래스 listEdit를 넘김
-                Intent intent = new Intent(getActivity(), listEdit.class);
-                //list_edit 액티비티 실행
-                startActivity(intent);
-                break;
-            case R.id.listItemDelete:
-                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-                int index = info.position;
-                tdList.remove(index);
-                listAdapter.notifyDataSetChanged();
-                break;
-        }
-        return true;
     }
 
     //데이터 받는 함수
