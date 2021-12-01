@@ -1,5 +1,6 @@
 package com.example.dowith;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -39,12 +40,13 @@ public class placeLibraryLocked extends AppCompatActivity {
             }
         });
 
-        timeCountInMilliSeconds = Integer.parseInt(leftTime.getText().toString()) * 60 * 60 * 1000;
+        timeCountInMilliSeconds = (long) (Double.parseDouble(leftTime.getText().toString()) * 60 * 60 * 1000);
 
         setProgressBarValues();
 
         lockedTimer = new CountDownTimer(timeCountInMilliSeconds, 1000) {
-            //@SuppressLint("DefaultLocale")
+
+            @SuppressLint("DefaultLocale")
             @Override
             public void onTick(long l) {
                 leftTime.setText(String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(l),
@@ -56,13 +58,6 @@ public class placeLibraryLocked extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-//                leftTime.setText(String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(timeCountInMilliSeconds),
-//                        TimeUnit.MILLISECONDS.toMinutes(timeCountInMilliSeconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeCountInMilliSeconds)),
-//                        TimeUnit.MILLISECONDS.toSeconds(timeCountInMilliSeconds) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeCountInMilliSeconds))));
-//
-//                timerProgressBar.setMax((int) timeCountInMilliSeconds);
-//                timerProgressBar.setProgress((int) timeCountInMilliSeconds / 1000);
-
                 cancel();
                 finish();
             }

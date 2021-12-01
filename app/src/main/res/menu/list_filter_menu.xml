@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/listFilterStudy"
+        android:title="공부" />
+
+    <item
+        android:id="@+id/listFilterExercise"
+        android:title="운동" />
+
+    <item
+        android:id="@+id/listFilterMorning"
+        android:title="아침루틴" />
+
+    <item
+        android:id="@+id/listFilterEvening"
+        android:title="저녁루틴" />
+
+    <item
+        android:id="@+id/listFilterHabit"
+        android:title="취미" />
+
+</menu>
