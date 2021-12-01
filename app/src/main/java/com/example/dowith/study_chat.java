@@ -161,7 +161,7 @@ public class study_chat extends AppCompatActivity {
             super.onPreExecute();
 
             progressDialog = ProgressDialog.show(study_chat.this,
-                    "공간을 추가합니다...", null, true, true);
+                    "채팅을 보냅니다...", null, true, true);
         }
 
 

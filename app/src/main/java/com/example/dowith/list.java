@@ -89,18 +89,6 @@ public class list extends Fragment {
         //http 링크를 실행
         task.execute( "http://" + IP_ADDRESS + "/dowith/list_getjson.php", "");
 
-//        //add() 메소드로 tdList에 항목 추가
-//        //추후에 DB와 연동되는 코드로 수정 필요
-//        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
-//        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
-//        tdList.add(new listItem("영단어50 외기", "취미", "10:00~11:00", "전날 거 꼭 복습하기", false));
-//        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
-//        tdList.add(new listItem("저녁 운동", "운동", "22:00~23:00", "텀블러 챙기기", false));
-//        tdList.add(new listItem("펠트 공예", "취미", "16:00~16:20", "남은거 마저 하기", false));
-//        tdList.add(new listItem("아침 달리기", "운동", "08:00~09:00", "가기 전 스트레칭하기!", false));
-//        tdList.add(new listItem("독서 10분", "취미", "09:00~10:00", "아몬드 읽기", false));
-
-
         btnFilterList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -346,8 +334,24 @@ public class list extends Fragment {
                 listItem.setItem_ID(td_id);
                 listItem.setItem_title(td_name);
                 listItem.setItem_memo(td_content);
-                listItem.setItem_type(td_cate);
-                listItem.setItem_time("시작: " + td_start + " 종료:" + td_finish);
+                switch (td_cate) {
+                    case "0" :
+                        listItem.setItem_type("공부");
+                        break;
+                    case "1" :
+                        listItem.setItem_type("운동");
+                        break;
+                    case "2" :
+                        listItem.setItem_type("아침루틴");
+                        break;
+                    case "3" :
+                        listItem.setItem_type("저녁루틴");
+                        break;
+                    case "4" :
+                        listItem.setItem_type("취미");
+                        break;
+                }
+                listItem.setItem_time(td_start.substring(0,5) + " ~ " + td_finish.substring(0,5));
                 listItem.setItem_done(td_yn == "1"? true:false); //td_yn의 값이 1이면 true, 그외는 false 출력
 
                 tdList.add(listItem);

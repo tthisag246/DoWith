@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -180,7 +182,6 @@ public class listAdd extends AppCompatActivity {
             }
         });
 
-
         //저장 버튼을 클릭했을 때
         btnListSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +190,7 @@ public class listAdd extends AppCompatActivity {
                 String td_id = "1234";
                 String td_name = listTitle.getText().toString();
                 String td_content = listMemo.getText().toString();
-                String td_cate = ListType.getText().toString();
+                String td_cate = String.valueOf(selected);
                 //시작 날짜, 시간 문자열 변경
                 String a = listStartDate.getText().toString();
                 String a1 = listStartTime.getText().toString();
@@ -206,7 +207,7 @@ public class listAdd extends AppCompatActivity {
 
                 String td_start = a + a1;
                 String td_finish = b + b1;
-                String td_yn = "1";
+                String td_yn = "0";
 
                 SaveData task = new SaveData();
                 task.execute("http://" + IP_ADDRESS + "/dowith/list_insert.php", td_id, td_name, td_content, td_cate, td_start

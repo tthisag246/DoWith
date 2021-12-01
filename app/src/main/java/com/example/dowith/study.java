@@ -37,7 +37,7 @@ public class study extends Fragment {
 
     //데이터베이스 서버의 ip주소 IP_ADDRESS에 적용
     private static String IP_ADDRESS = "dowith0server.dothome.co.kr";
-    private static String TAG = "Study_insert";
+    private static String TAG = "studyDB";
 
     private View view;
     View makeview;
@@ -83,7 +83,7 @@ public class study extends Fragment {
         studylist.clear();
         studylistadapter.notifyDataSetChanged();
         study.GetData task = new study.GetData();
-        task.execute( "http://" + IP_ADDRESS + "/dowith/Study_getjson.php", "");
+        task.execute( "http://" + IP_ADDRESS + "/dowith/study_getjson.php", "");
 
 
         //studylistView 클릭하면 실행하는 코드
@@ -133,7 +133,7 @@ public class study extends Fragment {
 
                         InsertData task = new InsertData();
                         //php파일 ip주소 연결
-                        task.execute("http://" + IP_ADDRESS + "/dowith/Study_insert.php", study_id,study_name,study_desc);
+                        task.execute("http://" + IP_ADDRESS + "/dowith/study_insert.php", study_id,study_name,study_desc);
 
                         //Intent 생성, study_chat로 화면 전환
                         Intent intent = new Intent(getActivity(), study_chat.class);
