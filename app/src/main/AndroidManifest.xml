@@ -50,7 +50,8 @@
         <activity android:name=".register"/>
         <activity android:name=".friend1"/>
         <activity android:name=".friendRoom"/>
-        <activity android:name=".listEdit"/>
+        <activity android:name=".listEdit"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".placeLibraryLocked"
             android:theme="@style/Transparent"/>
         <meta-data
