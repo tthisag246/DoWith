@@ -8,8 +8,6 @@
     tools:context=".MainActivity">
 
     <!--    캐릭터 이미지 -->
-    <!--친구 캐릭터 이미지-->
-
     <ImageView
         android:id="@+id/sd"
         android:layout_width="114dp"
@@ -17,6 +15,7 @@
         android:translationX="150dp"
         android:translationY="200dp"
         app:srcCompat="@drawable/sd1" />
+    <!--친구 캐릭터 이미지-->
 
     <ImageView
         android:id="@+id/imageView5"

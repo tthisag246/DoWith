@@ -37,7 +37,7 @@
 
             <!--새로고침 버튼-->
             <ImageButton
-                android:id="@+id/imageButton7"
+                android:id="@+id/re"
                 android:layout_width="5dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -48,7 +48,7 @@
                 app:tint="#3F51B5" />
             <!--완성 버튼-->
             <ImageButton
-                android:id="@+id/imageButton6"
+                android:id="@+id/check"
                 android:layout_width="5dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"

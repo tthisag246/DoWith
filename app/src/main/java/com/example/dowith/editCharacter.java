@@ -12,15 +12,34 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class editCharacter extends AppCompatActivity {
+    View.OnClickListener cl;
+    ImageButton checkbtn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_character);
+        checkbtn = (ImageButton) findViewById(R.id.check);
+
+        //체크 버튼 클릭하면 메인 페이지로
+        cl = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch ( view.getId()){
+                    case R.id.check:
+                        finish();
+                        break;
+                }
+            }
+        };
+        checkbtn.setOnClickListener(cl);
+
         //캐릭터 꾸미기 페이지를 보여줌
 
-
-
         final ImageButton button1 = (ImageButton) findViewById(R.id.back_editC);
+
+
+
         button1.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
@@ -46,6 +65,8 @@ public class editCharacter extends AppCompatActivity {
                     }
                 });
                 dlg.show(); //경고문구 보여줌
+
+
             }
         });
 

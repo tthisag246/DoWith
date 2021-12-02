@@ -64,13 +64,17 @@ public class friendList extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                //서치 초기화
                 friendSearchList.clear();
 
+                //friendList의 길이만큼 반복
                 for (int i = 0; i < friendList.size(); i++) {
+                    //만약 찾으려는 항복이 들어있다면 서치뷰list에 출력
                     if (friendList.get(i).getItem_title().contains(newText)) {
                         friendSearchList.add(friendList.get(i));
                     }
                 }
+                //friendSearchAdapter 호출
                 friendListView.setAdapter(friendSearchAdapter);
                 return true;
             }
@@ -106,7 +110,7 @@ public class friendList extends AppCompatActivity {
                 dlg.setPositiveButton("방문", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //Intent 생성, friend_library의 클래스 friendLibrary를 넘김
+                        //Intent 생성, friend_room의 클래스 friendRoom을 넘김
                         Intent intent = new Intent(friendList.this, friendRoom.class);
                         //friend_library 액티비티 실행
                         startActivity(intent);
