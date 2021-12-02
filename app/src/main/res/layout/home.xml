@@ -15,7 +15,7 @@
         android:layout_height="311dp"
         android:translationX="10dp"
         android:translationY="420dp"
-        app:srcCompat="@drawable/sd1" />
+        app:srcCompat="@drawable/sd_main" />
 
     <!--캐릭터 꾸미기 방 버튼-->
     <Button
