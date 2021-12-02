@@ -46,8 +46,10 @@ public class studyadapter extends BaseAdapter {
         }
 
         TextView studyTitle = (TextView) view.findViewById(R.id.studyItemTitle);
+        TextView studyDesc = (TextView) view.findViewById(R.id.studyItemDesc);
 
         studyTitle.setText(ar.get(i).getItem_title());
+        studyDesc.setText(ar.get(i).getItem_desc());
 
         return view;
     }

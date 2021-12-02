@@ -11,17 +11,28 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
 
-        <!--공간 제목 텍스트뷰 생성-->
+        <!--스터디 제목 텍스트뷰 생성-->
         <TextView
             android:id="@+id/studyItemTitle"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="20dp"
-            android:translationX="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textColor="#222222"
-            android:fontFamily="@font/bmj"
-            android:layout_marginBottom="10dp"/>
+            android:fontFamily="@font/bmj"/>
+
+        <!--스터디 설명 텍스트뷰 생성-->
+        <TextView
+            android:id="@+id/studyItemDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="#222222"
+            android:fontFamily="@font/bmj"/>
     </LinearLayout>
 
 </LinearLayout>
