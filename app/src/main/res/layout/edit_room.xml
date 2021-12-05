@@ -29,7 +29,7 @@
             android:layout_height="200dp"
             android:translationX="200dp"
             android:translationY="220dp"
-            app:srcCompat="@drawable/sd1" />
+            app:srcCompat="@drawable/sd_main" />
     </LinearLayout>
 
     <ImageView

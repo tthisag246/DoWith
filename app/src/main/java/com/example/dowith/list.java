@@ -369,7 +369,7 @@ public class list extends Fragment {
                 listAdapter.notifyDataSetChanged(); //새로고침 갱신
             }
 
-        //오류 발생하면 showResult 태그 붙여 수정
+        //오류 발생하면 showResult 태그 붙여 출력
         } catch (JSONException e) {
 
             Log.d(TAG, "showResult : ", e);

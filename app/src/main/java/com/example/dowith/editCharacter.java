@@ -2,10 +2,13 @@ package com.example.dowith;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,13 +16,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class editCharacter extends AppCompatActivity {
     View.OnClickListener cl;
-    ImageButton checkbtn;
+    ImageButton checkbtn, rebtn;
+    Button sad, ang;
+    ImageView imageview;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_character);
         checkbtn = (ImageButton) findViewById(R.id.check);
+        rebtn = (ImageButton) findViewById(R.id.re);
+        sad  = (Button) findViewById(R.id.sad);
+        ang = (Button) findViewById(R.id.angry);
+        imageview = (ImageView) findViewById(R.id.sdmain);
+
 
         //체크 버튼 클릭하면 메인 페이지로
         cl = new View.OnClickListener() {
@@ -29,10 +40,28 @@ public class editCharacter extends AppCompatActivity {
                     case R.id.check:
                         finish();
                         break;
+                    case R.id.re:
+                        finish();//인텐트 종료
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
+                        Intent intent = getIntent(); //인텐트
+                        startActivity(intent); //액티비티 열기
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
+                        break;
+                    case R.id.angry:
+                        imageview.setImageResource(R.drawable.sd_angry);
+                        break;
+                    case R.id.sad:
+                        imageview.setImageResource(R.drawable.sd_sad);
+                        break;
                 }
             }
         };
         checkbtn.setOnClickListener(cl);
+        rebtn.setOnClickListener(cl);
+        ang.setOnClickListener(cl);
+        sad.setOnClickListener(cl);
+
+
 
         //캐릭터 꾸미기 페이지를 보여줌
 
