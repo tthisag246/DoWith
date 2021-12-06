@@ -8,14 +8,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home">
 
-        <!--    캐릭터 이미지 -->
+    <!-- 캐릭터 이미지 -->
     <ImageView
         android:id="@+id/sd"
         android:layout_width="114dp"
         android:layout_height="311dp"
         android:translationX="10dp"
         android:translationY="420dp"
-        app:srcCompat="@drawable/sd1" />
+        app:srcCompat="@drawable/sd_main" />
 
     <!--캐릭터 꾸미기 방 버튼-->
     <Button

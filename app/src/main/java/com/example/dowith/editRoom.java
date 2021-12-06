@@ -2,6 +2,7 @@ package com.example.dowith;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-//test
+
 public class editRoom extends AppCompatActivity {
     ImageButton back;
     View.OnClickListener cl;
@@ -44,6 +45,7 @@ public class editRoom extends AppCompatActivity {
                 //취소 버튼 클릭시 동작
                 dlg.setNegativeButton("취소",new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int which) {
+
                     }
                 });
                 dlg.show(); //경고문구 보여줌

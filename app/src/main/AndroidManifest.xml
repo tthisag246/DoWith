@@ -4,8 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-
+<!--    //두윗 아이콘 설정 및 DB를 위해 cleartext을 참으로 설정-->
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -15,10 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoWith"
         >
+<!--        //구글 애드몹 메타 데이터-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9257714149418444~3437255000"/>
-
+<!--        //네이버 지도 메타 데이터-->
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="43at1c1c0p" />
+<!--        //스플래시 화면 먼저 나오게 설정한뒤, 다음 페이지 순서대로 화면 나오게끔 설정-->
         <activity android:name=".splash"
             android:exported="true">
             <intent-filter>
@@ -54,9 +58,6 @@
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".placeLibraryLocked"
             android:theme="@style/Transparent"/>
-        <meta-data
-            android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="43at1c1c0p" />
     </application>
 
 </manifest>

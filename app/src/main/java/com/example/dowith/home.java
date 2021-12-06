@@ -26,6 +26,7 @@ public class home extends Fragment
     GestureDetector detector;
     float prevX, prevY;
 
+    //캐릭터 이동 메서드
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -33,21 +34,25 @@ public class home extends Fragment
         view = inflater.inflate(R.layout.home,container,false);
         imageView = (ImageView) view.findViewById(R.id.sd);
 
+        //캐릭터 이미지를 움직이는 함수
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()){
+                    //터치했을 때
                     case MotionEvent.ACTION_DOWN:
                         prevX = event.getX();
                         prevY = event.getY();
                     break;
+                    //터치 뒤 드래그 할 때
                     case MotionEvent.ACTION_MOVE:
                         float dx = event.getX() - prevX;
                         float dy = event.getY() - prevY;
                         v.setX(v.getX() + dx); v.setY(v.getY() + dy);
                         break;
-                        case MotionEvent.ACTION_CANCEL:
-                            case MotionEvent.ACTION_UP:
-                                break;
+                        //터치 해제했을 때
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        break;
                 } return true;
             }
         });

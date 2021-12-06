@@ -29,16 +29,14 @@
             android:layout_height="200dp"
             android:translationX="200dp"
             android:translationY="220dp"
-            app:srcCompat="@drawable/sd1" />
+            app:srcCompat="@drawable/sd_main" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="3dp"
         app:srcCompat="@drawable/editr_menu" />
 
 

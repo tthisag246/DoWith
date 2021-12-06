@@ -1,7 +1,7 @@
 package com.example.dowith;
 
 public class friendItem {
-    //공간을 구성하는 항목들을 String 변수로 생성
+    //친구목록을 구성하는 항목들을 String 변수로 생성
     String friendTitle, friendType, friendTime, friendMemo;
 
     //생성자

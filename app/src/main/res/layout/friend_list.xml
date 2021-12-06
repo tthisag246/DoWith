@@ -33,15 +33,15 @@
         android:textSize="20dp" />
     </LinearLayout>
 
-    <!--검색창 추가-->
+    <!--검색창-->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/friendSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:iconifiedByDefault="false"
-        app:queryHint="|" />
+        app:queryHint="친구명을 입력하세요|" />
 
-    <!--공간 목록 나열할 리스트뷰 생성-->
+    <!--친구 목록 나열할 리스트뷰 생성-->
     <ListView
         android:id="@+id/friendListView"
         android:layout_width="match_parent"
