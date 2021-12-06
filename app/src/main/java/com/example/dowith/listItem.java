@@ -1,12 +1,12 @@
 package com.example.dowith;
 
-//일정 객체 생성
+// 일정 아이템 클래스 선언
 public class listItem {
-    //일정을 구성하는 항목들을 String 변수로 생성
-    String listID, listTitle, listType, listTime, listMemo;
-    Boolean listDone;
+    // 필드 선언
+    private String listID, listTitle, listType, listTime, listMemo;
+    private Boolean listDone;
 
-    //get 메서드
+    // 접근자
     public listItem get() { return this; }
     public String getItem_ID() { return listID; }
     public String getItem_title() { return listTitle; }
@@ -15,7 +15,7 @@ public class listItem {
     public String getItem_memo() { return listMemo; }
     public Boolean getItem_done() { return listDone; }
 
-    //set 메서드
+    // 설정자
     public void setItem_ID(String ID) { this.listID = ID; }
     public void setItem_title(String title) { this.listTitle = title; }
     public void setItem_type(String type) { this.listType = type; }

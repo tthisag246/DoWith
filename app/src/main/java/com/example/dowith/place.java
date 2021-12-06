@@ -43,47 +43,40 @@ import java.util.ArrayList;
 
 public class place extends Fragment {
 
+    // 변수 선언
     private View view;
     View placeAddView;
+    ArrayList<placeItem> placeList;
+    placeAdapter placeListAdapter, placeSearchAdapter;
+    ListView placeListView;
+    ImageButton btnAddPlace;
+    public static String placeName;
+    SearchView placeSearchView;
+    ArrayList<placeItem> placeSearchList;
 
     private static String IP_ADDRESS = "dowith0server.dothome.co.kr";
     private static String TAG = "placeDB";
-
-    public static String placeName;
-
     String mJsonString;
-
-    ArrayList<placeItem> placeList;
-
-    placeAdapter placeListAdapter;
-
-    placeAdapter placeSearchAdapter;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.place,container,false);
 
-        //서치뷰 변수 placeSearchView 생성, XML의 placeSearchView에 대응시킴
-        SearchView placeSearchView = (SearchView) view.findViewById(R.id.placeSearchView);
-        //ArrayList<placeItem> 변수 placeSearchList 생성
-        ArrayList<placeItem> placeSearchList = new ArrayList<placeItem>();
-        //커스텀 리스트뷰 placeAdapter 변수 생성, place_item으로 형식 지정, placeSearchList 배열 적용
+        // xml에 생성한 위젯을 변수에 대입
+        placeSearchView = (SearchView) view.findViewById(R.id.placeSearchView);
+        placeSearchList = new ArrayList<placeItem>();
         placeSearchAdapter = new placeAdapter(getActivity(), R.layout.place_item, placeSearchList);
-        //공간 목록을 담을 ArrayList<placeItem> 변수 placeList 선언
+        btnAddPlace = (ImageButton) view.findViewById(R.id.btnAddPlace);
+        placeListView = (ListView) view.findViewById(R.id.placeListView);
         placeList = new ArrayList<placeItem>();
-        //placeAdapter 변수 placeListAdapter 생성, place_item으로 형식 지정, placeList 배열 적용
+        // 커스텀 리스트뷰 placeAdapter 변수 placeListAdapter 생성, place_item으로 형식 지정, placeList 배열 적용
         placeListAdapter = new placeAdapter(getActivity(), R.layout.place_item, placeList);
-        //리스트뷰 변수 placeListView 생성, XML의 placeList에 대응시킴
-        ListView placeListView = (ListView) view.findViewById(R.id.placeListView);
-        //버튼 변수 btnAddPlace 생성, XML의 btnAddPlace에 대응시킴
-        ImageButton btnAddPlace = (ImageButton) view.findViewById(R.id.btnAddPlace);
 
-        //adapter를 placeListView에 적용
+        // listAdapter를 listView에 적용
         placeListView.setAdapter(placeListAdapter);
 
-        //placeSearchView로 검색 시 작동하는 리스너 생성
+        // 쿼리 리스너 지정
         placeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -104,33 +97,17 @@ public class place extends Fragment {
             }
         });
 
-
+        // placeList를 null로 초기화, size를 0으로 설정
         placeList.clear();
+        // placeListAdapter 갱신
         placeListAdapter.notifyDataSetChanged();
 
+        // DB에서 데이터 가져오는 객체 생성
         GetData task = new GetData();
+        // http 링크를 실행
         task.execute( "http://" + IP_ADDRESS + "/dowith/place_getjson.php", "");
 
-
-        //add() 메소드로 placeList에 항목 추가
-        //DB데이터 불러오는 코드로 수정해야 함
-      
-//        placeList.add(new placeItem("8시간 폰 잠금방", "도서관"));
-//        placeList.add(new placeItem("IT소프트웨어과 2학년 B반 공부방", "도서관"));
-//        placeList.add(new placeItem("백투더오피스 회의실", "회의실"));
-//        placeList.add(new placeItem("hihi", "도서관"));
-//        placeList.add(new placeItem("놀고 싶다...", "도서관"));
-//        placeList.add(new placeItem("8시간 폰 잠금방", "도서관"));
-//        placeList.add(new placeItem("IT소프트웨어과 2학년 B반 공부방", "도서관"));
-//        placeList.add(new placeItem("백투더오피스 회의실", "회의실"));
-//        placeList.add(new placeItem("hihi", "도서관"));
-//        placeList.add(new placeItem("놀고 싶다...", "도서관"));        placeList.add(new placeItem("8시간 폰 잠금방", "도서관"));
-//        placeList.add(new placeItem("IT소프트웨어과 2학년 B반 공부방", "도서관"));
-//        placeList.add(new placeItem("백투더오피스 회의실", "회의실"));
-//        placeList.add(new placeItem("hihi", "도서관"));
-//        placeList.add(new placeItem("놀고 싶다...", "도서관"));
-
-        //placeListView를 클릭하면 실행하는 코드
+        // 공간 목록 아이템 클릭 리스너 지정
         placeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(place.this.getActivity());
@@ -139,9 +116,9 @@ public class place extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         placeName = placeList.get(arg2).getItem_name();
-                        //Intent 생성, place_library의 클래스 placeLibrary를 넘김
+                        // Intent 생성, place_library의 클래스 placeLibrary를 넘김
                         Intent intent = new Intent(getActivity(), placeLibrary.class);
-                        //place_library 액티비티 실행
+                        // place_library 액티비티 실행
                         startActivity(intent);
                     }
                 });
@@ -150,43 +127,44 @@ public class place extends Fragment {
             }
         });
 
-        //btnAddPlace 버튼을 클릭하면 실행하는 코드
+        // 공간 생성 클릭 리스너
         btnAddPlace.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //place_add 파일을 인플레이트하여 placeAddView에 대입
+                // place_add 파일을 인플레이트하여 placeAddView에 대입
                 placeAddView = (View) View.inflate(place.this.getActivity(), R.layout.place_add, null);
 
-                //대화상자 생성
+                // 대화상자 생성
                 AlertDialog.Builder dlg = new AlertDialog.Builder(place.this.getActivity());
-                //dlg.setTitle("공간 생성");
                 TextView dlgTitle = (TextView) v.findViewById(R.id.placeAddTitle);
                 dlg.setCustomTitle(dlgTitle);
                 dlg.setIcon(R.drawable.add);
                 dlg.setView(placeAddView);
 
+                // 변수 선언
                 EditText place_name_edit;
                 EditText place_desc_edit;
-
                 RadioGroup placeCateRG = (RadioGroup) placeAddView.findViewById(R.id.placeTheme);
-
                 place_name_edit = (EditText) placeAddView.findViewById(R.id.placeTitle);
                 place_desc_edit = (EditText) placeAddView.findViewById(R.id.placeMemo);
 
                 dlg.setPositiveButton("생성", new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //DB에 저장하는 코드 필요
                         String place_name = place_name_edit.getText().toString();
                         String place_desc = place_desc_edit.getText().toString();
                         RadioButton selectPlaceCate = (RadioButton) placeAddView.findViewById(placeCateRG.getCheckedRadioButtonId());
                         String p_cate_id = (selectPlaceCate.getText().toString().equals("도서관") ? "1" : "2" );
 
+                        // DB에 데이터 삽입하는 객체 생성
                         InsertData task = new InsertData();
+                        // http 링크를 실행
                         task.execute("http://" + IP_ADDRESS + "/dowith/place_insert.php", place_name, place_desc, p_cate_id);
 
+                        // 공간명 저장
                         placeName = place_name;
+                        // Intent 생성, place_library의 클래스 placeLibrary를 넘김
                         Intent intent = new Intent(getActivity(), placeLibrary.class);
+                        // place_library 액티비티 실행
                         startActivity(intent);
                     }
                 });
