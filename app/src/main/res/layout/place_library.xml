@@ -18,6 +18,7 @@
         android:paddingTop="10dp"
         android:textAlignment="center"
         android:text="공간명"
+        android:textColor="#222222"
         android:fontFamily="@font/bmj" />
 
     <!--앱 잠금 버튼 생성-->

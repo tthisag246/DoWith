@@ -24,7 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:translationY="60dp">
+        android:translationY="60dp"
+        android:weightSum="1" >
 
         <!--orientation을 horizontal로 지정하기 위해 추가로 LinearLayout 생성-->
         <LinearLayout
@@ -86,6 +87,8 @@
                 android:focusable="false"
                 android:textSize="20dp"
                 android:textColor="#222222"
+                android:hint="시작 날짜"
+                android:textColorHint="#AAAAAA"
                 android:fontFamily="@font/bmj" />
 
             <!--일정 시작 시간 입력할 에디트텍스트 생성-->
@@ -99,6 +102,8 @@
                 android:focusable="false"
                 android:textSize="20dp"
                 android:textColor="#222222"
+                android:hint="시작 시간"
+                android:textColorHint="#AAAAAA"
                 android:fontFamily="@font/bmj"/>
 
         </LinearLayout>
@@ -131,6 +136,8 @@
                 android:focusable="false"
                 android:textSize="20dp"
                 android:textColor="#222222"
+                android:hint="종료 날짜"
+                android:textColorHint="#AAAAAA"
                 android:fontFamily="@font/bmj" />
 
             <!--일정 종료 시간 입력할 에디트텍스트 생성-->
@@ -142,7 +149,9 @@
                 android:inputType="time"
                 android:clickable="true"
                 android:focusable="false"
+                android:hint="종료 시간"
                 android:textSize="20dp"
+                android:textColorHint="#AAAAAA"
                 android:textColor="#222222"
                 android:fontFamily="@font/bmj" />
 
@@ -231,6 +240,7 @@
                 android:fontFamily="@font/bmj" />
 
             <!--일정 위치 프래그먼트 생성-->
+            <!--네이버 지도 API 사용-->
             <fragment
                 android:id="@+id/listMap"
                 android:name="com.naver.maps.map.MapFragment"

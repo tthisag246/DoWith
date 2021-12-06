@@ -14,13 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 public class placeLibraryLocked extends AppCompatActivity {
 
+    // 변수 선언
     Button btnLockedSwitch;
     long timeCountInMilliSeconds = 1 * 60000;
-
     ProgressBar timerProgressBar;
-
     TextView leftTime;
-
     CountDownTimer lockedTimer;
 
     @Override
@@ -28,11 +26,13 @@ public class placeLibraryLocked extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_library_locked);
 
+        // xml에 생성한 위젯을 변수에 대입
         btnLockedSwitch = (Button) findViewById(R.id.btnLockedSwitch);
         timerProgressBar = (ProgressBar) findViewById(R.id.timerProgressBar);
         leftTime = (TextView) findViewById(R.id.leftTime);
         leftTime.setText(placeLibrary.timeValue);
 
+        // 앱 잠금 해제 클릭 리스너 설정
         btnLockedSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +44,7 @@ public class placeLibraryLocked extends AppCompatActivity {
 
         setProgressBarValues();
 
+        // 타이머 객체 생성
         lockedTimer = new CountDownTimer(timeCountInMilliSeconds, 1000) {
 
             @SuppressLint("DefaultLocale")
@@ -67,6 +68,7 @@ public class placeLibraryLocked extends AppCompatActivity {
 
     }
 
+    // 시간 설정 메서드
     void setProgressBarValues() {
         timerProgressBar.setMax((int) timeCountInMilliSeconds / 1000);
         timerProgressBar.setProgress((int) timeCountInMilliSeconds / 1000);

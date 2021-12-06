@@ -88,6 +88,7 @@
                 android:inputType="date"
                 android:textColor="#222222"
                 android:hint="시작 날짜"
+                android:textColorHint="#AAAAAA"
                 android:textSize="20dp" />
 
             <!--일정 시작 시간 입력할 에디트텍스트 생성-->
@@ -102,6 +103,7 @@
                 android:inputType="time"
                 android:textColor="#222222"
                 android:hint="시작 시간"
+                android:textColorHint="#AAAAAA"
                 android:textSize="20dp" />
 
         </LinearLayout>
@@ -135,6 +137,7 @@
                 android:inputType="date"
                 android:textColor="#222222"
                 android:hint="종료 날짜"
+                android:textColorHint="#AAAAAA"
                 android:textSize="20dp" />
 
             <!--일정 종료 시간 입력할 에디트텍스트 생성-->
@@ -149,6 +152,7 @@
                 android:inputType="time"
                 android:textColor="#222222"
                 android:hint="종료 시간"
+                android:textColorHint="#AAAAAA"
                 android:textSize="20dp" />
 
         </LinearLayout>
@@ -236,6 +240,7 @@
                 android:textSize="20dp" />
 
             <!--일정 위치 프래그먼트 생성-->
+            <!--네이버 지도 API 사용-->
             <fragment
                 android:id="@+id/listMap"
                 android:name="com.naver.maps.map.MapFragment"
@@ -243,9 +248,6 @@
                 android:layout_height="400dp" />
 
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 

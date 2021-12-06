@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 
 public class placeLibrary extends AppCompatActivity {
 
+    // 변수 선언
     TextView placeNameView;
     Button btnLibrarySwitch;
     static public String timeValue;
@@ -31,13 +32,14 @@ public class placeLibrary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_library);
 
+        // xml에 생성한 위젯을 변수에 대입
         placeNameView = (TextView) findViewById(R.id.placeNameView);
-
-        placeNameView.setText(place.placeName);
-
         btnLibrarySwitch = (Button) findViewById(R.id.btnLibrarySwitch);
 
-        //btnAddPlace 버튼을 클릭하면 실행하는 코드
+        // 공간명 출력
+        placeNameView.setText(place.placeName);
+
+        // 앱 잠금 클릭 리스너 설정
         btnLibrarySwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,9 +55,11 @@ public class placeLibrary extends AppCompatActivity {
 
                 container.addView(timeInput);
 
+                // 대화상자 생성
                 AlertDialog.Builder dlg = new AlertDialog.Builder(placeLibrary.this);
                 dlg.setTitle("몇 시간 잠글까요?");
                 dlg.setView(container);
+                // 잠금 버튼 클릭 시 동작
                 dlg.setPositiveButton("잠금", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -68,8 +72,6 @@ public class placeLibrary extends AppCompatActivity {
                 });
                 dlg.setNegativeButton("취소", null);
                 dlg.show();
-
-
             }
         });
     }

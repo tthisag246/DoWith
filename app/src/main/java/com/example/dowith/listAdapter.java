@@ -10,14 +10,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-//커스텀 리스트뷰 listAdaptr 생성
+// 커스텀 리스트뷰 클래스 선언
 public class listAdapter extends BaseAdapter {
+    // 필드 선언
     Context con;
     int layout;
     ArrayList<listItem> ar;
     LayoutInflater inflater;
 
-    //생성자
+    // 생성자
     public listAdapter(Context con, int layout, ArrayList<listItem> ar) {
         this.con = con;
         inflater = (LayoutInflater) con.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -25,7 +26,7 @@ public class listAdapter extends BaseAdapter {
         this.ar = ar;
     }
 
-    //get 메서드
+    // 접근자
     @Override
     public int getCount() {
         return ar.size();

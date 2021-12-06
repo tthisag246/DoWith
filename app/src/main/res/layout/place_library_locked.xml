@@ -9,6 +9,7 @@
     android:background="@android:color/transparent"
     android:id="@+id/fullDisplay">
 
+    <!--프로그레스 바 내부를 어둡게 하기 위해 이미지뷰 생성-->
     <ImageView
         android:id="@+id/timerbackgrouond"
         android:layout_width="wrap_content"
@@ -16,6 +17,7 @@
         android:layout_centerInParent="true"
         app:srcCompat="@drawable/progress_circle_background" />
 
+    <!--남은 시간을 나타내는 프로그레스 바 생성-->
     <ProgressBar
         android:id="@+id/timerProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -29,6 +31,7 @@
         android:progressDrawable="@drawable/progress_circle_outer"
         android:rotation="-90" />
 
+    <!--자물쇠 아이콘 이미지뷰 생성-->
     <ImageView
         android:id="@+id/lockImage"
         android:layout_width="wrap_content"
@@ -37,6 +40,7 @@
         android:translationY="-20dp"
         app:srcCompat="@drawable/lock" />
 
+    <!--남은 시간을 나타내는 텍스트뷰 생성-->
     <TextView
         android:id="@+id/leftTime"
         android:layout_width="wrap_content"
