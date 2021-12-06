@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-//test
+
 public class editRoom extends AppCompatActivity {
     ImageButton back;
     View.OnClickListener cl;
